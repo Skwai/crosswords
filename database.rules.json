@@ -1,6 +1,18 @@
 {
   "rules": {
     ".read": "auth != null",
-    ".write": "auth != null"
+    ".write": "auth != null",
+
+    "words": {
+      ".read": "false",
+      ".write": "false"
+    },
+
+    "boards": {
+      "$board": {
+        ".read": "true",
+        ".write": "true"
+      }
+    }
   }
 }
