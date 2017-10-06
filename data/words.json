@@ -1,3 +1,24 @@
 {
-
+  "satellite": {
+    "Used for weather forecast": "clue",
+    "Toiling at tellies to get signal from this": "cryptic",
+    "A bowman's in position in outpost": "cryptic"
+  },
+  "cathedral": {
+    "The principal church of a city": "clue",
+    "A big, important church": "clue",
+    "Dancing act heard close to Torvill and Dean's workplace": "cryptic"
+  },
+  "canada": {
+    "Country on USA's northern border": "clue"
+  },
+  "please": {
+    "A polite way to ask things": "cryptic"
+  },
+  "easel": {
+    "A tripod used to put a painting": "cryptic"
+  },
+  "dense": {
+    "Thick; impenetrable": "clue"
+  }
 }
