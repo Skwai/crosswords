@@ -1,11 +1,13 @@
 <template>
   <Loading v-if="loading" />
   <div class="Board" v-else>
-    <div v-for="(row, rowNum) in board" :key="rowNum" class="Board__Row">
+    <div v-for="(row, y) in board" :key="y" class="Board__Row">
       <BoardCell
-        v-for="(cell, cellNum) in row"
+        v-for="(cell, x) in row"
         :cell="cell"
-        :key="cellNum"
+        :key="x"
+        :x="x"
+        :y="y"
         @next="next"
       />
     </div>

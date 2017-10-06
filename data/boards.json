@@ -1,8 +1,8 @@
 {
-  "board1": {{
-    "1": {
-      "a": null,
-      "b": {
+  "board1": {
+    "-1": {
+      "-a": null,
+      "-b": {
         "down": null,
         "across": {
           "word": 1,
@@ -10,8 +10,8 @@
           "value": null
         }
       },
-      "c": null,
-      "d": {
+      "-c": null,
+      "-d": {
         "down": null,
         "across": {
           "word": 2,
@@ -19,8 +19,8 @@
           "value": null
         }
       },
-      "e": null,
-      "f": {
+      "-e": null,
+      "-f": {
         "down": {
           "word": 3,
           "pos": 1,
@@ -28,7 +28,7 @@
         },
         "across": null
       },
-      "g": {
+      "-g": {
         "down": {
           "word": 3,
           "pos": 2,
@@ -40,7 +40,7 @@
           "value": null
         }
       },
-      "h": {
+      "-h": {
         "down": {
           "word": 3,
           "pos": 3,
@@ -48,7 +48,7 @@
         },
         "across": null
       },
-      "i": {
+      "-i": {
         "down": {
           "word": 3,
           "pos": 4,
@@ -61,8 +61,8 @@
         }
       }
     },
-    "2": {
-      "a": {
+    "-2": {
+      "-a": {
         "down": {
           "word": 6,
           "pos": 1,
@@ -70,7 +70,7 @@
         },
         "across": null
       },
-      "b": {
+      "-b": {
         "down": {
           "word": 6,
           "pos": 2,
@@ -82,7 +82,7 @@
           "value": null
         }
       },
-      "c": {
+      "-c": {
         "down": {
           "word": 6,
           "pos": 3,
@@ -90,7 +90,7 @@
         },
         "across": null
       },
-      "d": {
+      "-d": {
         "down": {
           "word": 6,
           "pos": 4,
@@ -102,7 +102,7 @@
           "value": null
         }
       },
-      "e": {
+      "-e": {
         "down": {
           "word": 6,
           "pos": 5,
@@ -110,8 +110,8 @@
         },
         "across": null
       },
-      "f": null,
-      "g": {
+      "-f": null,
+      "-g": {
         "down": null,
         "across": {
           "word": 4,
@@ -119,8 +119,8 @@
           "value": null
         }
       },
-      "h": null,
-      "i": {
+      "-h": null,
+      "-i": {
         "down": null,
         "across": {
           "word": 5,
@@ -129,9 +129,9 @@
         }
       }
     },
-    "3": {
-      "a": null,
-      "b": {
+    "-3": {
+      "-a": null,
+      "-b": {
         "down": null,
         "across": {
           "word": 1,
@@ -139,8 +139,8 @@
           "value": null
         }
       },
-      "c": null,
-      "d": {
+      "-c": null,
+      "-d": {
         "down": null,
         "across": {
           "word": 2,
@@ -148,8 +148,8 @@
           "value": null
         }
       },
-      "e": null,
-      "f": {
+      "-e": null,
+      "-f": {
         "down": null,
         "across": {
           "word": 7,
@@ -157,8 +157,8 @@
           "value": null
         }
       },
-      "g": null,
-      "h": {
+      "-g": null,
+      "-h": {
         "down": {
           "word": 8,
           "pos": 1,
@@ -166,7 +166,7 @@
         },
         "across": null
       },
-      "i": {
+      "-i": {
         "down": {
           "word": 8,
           "pos": 2,
@@ -179,8 +179,8 @@
         }
       }
     },
-    "4": {
-      "a": {
+    "-4": {
+      "-a": {
         "down": {
           "word": 9,
           "pos": 1,
@@ -192,7 +192,7 @@
           "value": null
         }
       },
-      "b": {
+      "-b": {
         "down": {
           "word": 9,
           "pos": 2,
@@ -204,8 +204,8 @@
           "value": null
         }
       },
-      "c": null,
-      "d": {
+      "-c": null,
+      "-d": {
         "down": {
           "word": 10,
           "pos": 1,
@@ -217,7 +217,7 @@
           "value": null
         }
       },
-      "e": {
+      "-e": {
         "down": {
           "word": 10,
           "pos": 2,
@@ -225,7 +225,7 @@
         },
         "across": null
       },
-      "f": {
+      "-f": {
         "down": {
           "word": 10,
           "pos": 3,
@@ -237,7 +237,7 @@
           "value": null
         }
       },
-      "g": {
+      "-g": {
         "down": {
           "word": 10,
           "pos": 4,
@@ -249,8 +249,8 @@
           "value": null
         }
       },
-      "h": null,
-      "i": {
+      "-h": null,
+      "-i": {
         "down": null,
         "across": {
           "word": 5,
@@ -259,8 +259,8 @@
         }
       }
     },
-    "5": {
-      "a": {
+    "-5": {
+      "-a": {
         "down": null,
         "across": {
           "word": 9,
@@ -268,9 +268,9 @@
           "value": null
         }
       },
-      "b": null,
-      "c": null,
-      "d": {
+      "-b": null,
+      "-c": null,
+      "-d": {
         "down": null,
         "across": {
           "word": 2,
@@ -278,8 +278,8 @@
           "value": null
         }
       },
-      "e": null,
-      "f": {
+      "-e": null,
+      "-f": {
         "down": {
           "word": 12,
           "pos": 1,
@@ -291,7 +291,7 @@
           "value": null
         }
       },
-      "g": {
+      "-g": {
         "down": {
           "word": 12,
           "pos": 2,
@@ -303,7 +303,7 @@
           "value": null
         }
       },
-      "h": {
+      "-h": {
         "down": {
           "word": 12,
           "pos": 3,
@@ -311,7 +311,7 @@
         },
         "across": null
       },
-      "i": {
+      "-i": {
         "down": {
           "word": 12,
           "pos": 4,

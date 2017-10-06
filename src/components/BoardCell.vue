@@ -3,9 +3,9 @@
     class="BoardCell"
     :data-question="cell === '%' ? cellIndex + 1 : false"
     :class="{ '-blank': cell === 'X', '-start': isStart, '-focused': isFocused }"
-    :data-num="word.num"
-    :data-across="word.across"
-    :data-down="word.down"
+    :data-num="'1'"
+    :data-across="words.across"
+    :data-down="words.down"
   ><input
     class="BoardCell__Input"
     v-if="!isBlank"
@@ -36,20 +36,20 @@ export default {
 
     focus () {
       if (!this.isBlank) {
-        const { word } = this
+        const { cell } = this
         this.$store.dispatch('focusWord', {
-          across: word.across ? word.across : null,
-          down: !word.across && word.down ? word.down : null
+          across: cell.across ? cell.across.word : null,
+          down: null
         })
       }
     },
 
     mousedown () {
-      const { isFocused, word, focusedWord } = this
-      if (isFocused && word.down && word.across) {
+      const { isFocused, cell, focusedWord } = this
+      if (isFocused && cell.down && cell.across) {
         this.$store.dispatch('focusWord', {
-          across: focusedWord.across ? null : word.across,
-          down: focusedWord.down ? null : word.down
+          across: focusedWord.across ? null : cell.across.word,
+          down: focusedWord.down ? null : cell.down.word
         })
       }
     },
@@ -61,16 +61,38 @@ export default {
 
   computed: {
     isFocused () {
+      /*
       const { cell, focusedWord } = this
-      return cell.across.word === focusedWord.across || cell.down.word === focusedWord.down
+      return cell && (cell.across && cell.across.word === focusedWord.across) || (cell.down && cell.down.word === focusedWord.down)
+      */
+      return false
     },
 
     isBlank () {
-      return this.cell === BLANK_CHAR
+      return this.cell === null
     },
 
     isStart () {
-      return this.cell.includes(START_CHAR)
+      const { cell } = this
+      return cell && (cell.down && cell.down.pos === 1) || (cell.across && cell.across.pos === 1)
+    },
+
+    words () {
+      const { cell: { down, across } } = this
+
+      return {
+        down: down ? down.word : null,
+        across: across ? across.word : null
+      }
+    },
+
+    pos () {
+      const { cell: { down, across } } = this
+
+      return {
+        down: down && down.pos ? down.pos : null,
+        across: across && across.pos ? across.pos : null
+      }
     },
 
     ...mapGetters(['focusedWord'])
