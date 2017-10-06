@@ -15,7 +15,10 @@ export default new Vuex.Store({
   mutations,
   state: {
     board: null,
-    words: {}
+    focusedWord: {
+      across: null,
+      down: null
+    }
   },
   strict: debug
 })

@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
       <router-view></router-view>
     </main>
   </div>
@@ -12,43 +8,41 @@
 
 <script>
 export default {
-  name: 'app'
+  components: {
+  }
 }
 </script>
 
-<style>
-body {
-  margin: 0;
-}
+<style lang="stylus">
+@require "./styles/config.styl"
+@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700")
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+html
+  font-size: fontSize
 
-main {
-  text-align: center;
-  margin-top: 40px;
-}
+body
+  margin: 0
+  font-family: "Roboto Slab", Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  color: #222
+  font-weight: 500
+  background: #dadbdc linear-gradient(135deg, #fff, #dadbdc)
 
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
-}
+textarea,
+select,
+button
+  font-family: inherit
+  font-size: inherit
+  line-height: inherit
 
-header span {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-top: 16px;
-}
+*
+  box-sizing: border-box
+
+#app
+  min-height: 100vh
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center
 </style>
