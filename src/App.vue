@@ -43,7 +43,7 @@ input
 #app
   min-height: 100vh
   width: 100%
+  padding-top: 5vh
   display: flex
-  align-items: center
   justify-content: center
 </style>

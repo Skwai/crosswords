@@ -87,7 +87,7 @@ export default {
 }
 
 .Board
-  border: currentColor solid 1px
+  border: currentColor solid 2px
   background: currentColor
   box-shadow: currentColor 0 2px 0
   border-radius: borderRadius
@@ -95,10 +95,12 @@ export default {
   animation: jiggle 0.82s cubic-bezier(.36,.07,.19,.97) both
   backface-visibility: hidden
   perspective: 1000px
+  max-width: 40rem
+  margin: 0 auto
 
   &__Row
     display: flex
 
     + .Board__Row
-      margin-top: 1px
+      margin-top: 2px
 </style>

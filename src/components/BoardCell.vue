@@ -114,9 +114,10 @@ export default {
   height: cellSize
   display: flex
   background: #fff
+  flex: 1
 
   & + .BoardCell
-    margin-left: 1px
+    margin-left: 2px
 
   &__Input
     width: 100%
@@ -125,7 +126,7 @@ export default {
     border: 0
     background: transparent
     text-align: center
-    font-size: 1.5rem
+    font-size: 4vmin
     font-family: inherit
     text-transform: uppercase
     margin: 0
@@ -147,7 +148,7 @@ export default {
       left: 0.25rem
       line-height: 1
       position: absolute
-      font-size: 0.75rem
+      font-size: 2vmin
       content: attr(data-start)
 
   &.-blank
