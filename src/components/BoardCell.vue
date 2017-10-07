@@ -11,9 +11,9 @@
   ><input
     class="BoardCell__Input"
     v-if="!isBlank"
-    @keydown.prevent="keydown"
     maxlength="1"
     minlength="1"
+    @keydown="keydown"
     @focus="focus"
     @mousedown="mousedown"
     @blur="blur"
@@ -31,19 +31,19 @@ export default {
     keydown (ev) {
       const { key } = ev
 
-      if (key.length !== 1 || key.toLowerCase() === key.toUpperCase()) return false
-
-      const { x, y, boardId } = this
-      const value = key.toUpperCase()
-      ev.target.value = value
-      this.$store.dispatch('setCellValue', {
-        value,
-        x,
-        y,
-        boardId
-      })
-      this.$listeners.next(x, y)
-      ev.target.blur()
+      if (key.length === 1 && key.toLowerCase() !== key.toUpperCase()) {
+        const { x, y, boardId } = this
+        const value = key.toUpperCase()
+        ev.target.value = value || ''
+        this.$store.dispatch('setCellValue', {
+          value,
+          x,
+          y,
+          boardId
+        })
+        this.$listeners.next(x, y)
+        ev.target.blur()
+      }
     },
 
     focus () {
