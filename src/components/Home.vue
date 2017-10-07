@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="Home">
     <Loading v-if="loading" />
     <Btn v-else @click="generate">Create a crossword</Btn>
   </div>
@@ -32,5 +32,5 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
 </style>

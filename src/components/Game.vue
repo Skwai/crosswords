@@ -18,6 +18,4 @@ export default {
 </script>
 
 <style lang="stylus">
-.Game
-  background: #fff
 </style>

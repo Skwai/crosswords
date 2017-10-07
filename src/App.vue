@@ -31,7 +31,8 @@ body
 
 textarea,
 select,
-button
+button,
+input
   font-family: inherit
   font-size: inherit
   line-height: inherit
