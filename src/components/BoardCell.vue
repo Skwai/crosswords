@@ -69,16 +69,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      boardId: null
-    }
-  },
-
-  created () {
-    this.boardId = this.$route.params.boardId
-  },
-
   computed: {
     isFocused () {
       if (this.isBlank) return false
@@ -111,7 +101,7 @@ export default {
       return found && 'word' in found ? found.word : false
     },
 
-    ...mapGetters(['focusedWord'])
+    ...mapGetters(['focusedWord', 'boardId'])
   }
 }
 </script>
@@ -144,11 +134,12 @@ export default {
     backface-visibility: none
 
     .-focused &
-      background: rgba(0,0,0,.1)
+      box-shadow: inset rgba(#BD10E0, .2) 0 0 0 3px
+      background: rgba(#BD10E0, .2)
 
     &:focus
       outline: 0
-      background: rgba(0,0,0,.1)
+      background: rgba(#BD10E0, .2)
 
   &.-start
     &::before

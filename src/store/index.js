@@ -16,6 +16,7 @@ export default new Vuex.Store({
   state: {
     board: null,
     boardId: null,
+    game: null,
     focusedWord: {
       across: null,
       down: null

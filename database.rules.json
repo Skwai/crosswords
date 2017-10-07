@@ -8,6 +8,13 @@
       ".write": "false"
     },
 
+    "games": {
+      "$game": {
+        ".read": "true",
+        ".write": "true"
+      }
+    },
+
     "boards": {
       "$board": {
         ".read": "true",

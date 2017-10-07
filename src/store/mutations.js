@@ -12,6 +12,11 @@ export default {
     }
   },
 
+  [types.SET_GAME] (state, game) {
+    console.log(game)
+    state.game = game
+  },
+
   [types.SET_BOARD] (state, board) {
     state.board = board
   },

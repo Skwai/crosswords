@@ -51,6 +51,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@require "../styles/config.styl"
+
 @keyframes jiggle {
   from, 20%, 40%, 60%, 80%, to {
     animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);

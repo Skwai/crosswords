@@ -29,7 +29,7 @@ export default {
   border-radius: borderRadiusSmall
   padding: spacingSmall
   font-size: 0.875rem
-  margin: 0 auto spacingBase
+  margin: spacingBase auto spacingBase
   transition: transitionBase
 
   &__Input

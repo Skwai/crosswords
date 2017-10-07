@@ -11,8 +11,20 @@ export const unfocusWord = ({ commit }) => {
 
 export const loadBoard = async ({ commit }, boardId) => {
   commit(types.SET_BOARD_ID, boardId)
-  db.ref('boards').child(boardId).on('value', (snapshot) => {
-    commit(types.SET_BOARD, snapshot.val())
+  return new Promise((resolve) => {
+    db.ref(`boards/${boardId}`).on('value', (snapshot) => {
+      resolve()
+      commit(types.SET_BOARD, snapshot.val())
+    })
+  })
+}
+
+export const loadGame = async ({ commit }, gameId) => {
+  return new Promise((resolve) => {
+    db.ref(`games/${gameId}`).on('value', (snapshot) => {
+      resolve()
+      commit(types.SET_GAME, snapshot.val())
+    })
   })
 }
 
