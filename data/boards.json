@@ -1,327 +1,314 @@
 {
   "board1": {
-    "-1": {
-      "-a": null,
-      "-b": {
-        "down": null,
+    "y1": {
+      "x1": false,
+      "x2": {
+        "down": false,
         "across": {
           "word": 1,
-          "pos": 1,
-          "value": null
-        }
+          "pos": 1
+        },
+        "value": ""
       },
-      "-c": null,
-      "-d": {
-        "down": null,
+      "x3": false,
+      "x4": {
+        "down": false,
         "across": {
           "word": 2,
-          "pos": 1,
-          "value": null
-        }
-      },
-      "-e": null,
-      "-f": {
-        "down": {
-          "word": 3,
-          "pos": 1,
-          "value": null
+          "pos": 1
         },
-        "across": null
+        "value": ""
       },
-      "-g": {
+      "x5": false,
+      "x6": {
         "down": {
           "word": 3,
-          "pos": 2,
-          "value": null
+          "pos": 1
+        },
+        "across": false,
+        "value": ""
+      },
+      "x7": {
+        "down": {
+          "word": 3,
+          "pos": 2
         },
         "across": {
           "word": 4,
-          "pos": 1,
-          "value": null
-        }
-      },
-      "-h": {
-        "down": {
-          "word": 3,
-          "pos": 3,
-          "value": null
+          "pos": 1
         },
-        "across": null
+        "value": ""
       },
-      "-i": {
+      "x8": {
         "down": {
           "word": 3,
-          "pos": 4,
-          "value": null
+          "pos": 3
+        },
+        "across": false,
+        "value": ""
+      },
+      "x9": {
+        "down": {
+          "word": 3,
+          "pos": 4
         },
         "across": {
           "word": 5,
-          "pos": 1,
-          "value": null
-        }
+          "pos": 1
+        },
+        "value": ""
       }
     },
-    "-2": {
-      "-a": {
+    "y2": {
+      "x1": {
         "down": {
           "word": 6,
-          "pos": 1,
-          "value": null
+          "pos": 1
         },
-        "across": null
+        "across": false,
+        "value": ""
       },
-      "-b": {
+      "x2": {
         "down": {
           "word": 6,
-          "pos": 2,
-          "value": null
+          "pos": 2
         },
         "across": {
           "word": 1,
-          "pos": 2,
-          "value": null
-        }
-      },
-      "-c": {
-        "down": {
-          "word": 6,
-          "pos": 3,
-          "value": null
+          "pos": 2
         },
-        "across": null
+        "value": ""
       },
-      "-d": {
+      "x3": {
         "down": {
           "word": 6,
-          "pos": 4,
-          "value": null
+          "pos": 3
+        },
+        "across": false,
+        "value": ""
+      },
+      "x4": {
+        "down": {
+          "word": 6,
+          "pos": 4
         },
         "across": {
           "word": 2,
-          "pos": 2,
-          "value": null
-        }
+          "pos": 2
+        },
+        "value": ""
       },
-      "-e": {
+      "x5": {
         "down": {
           "word": 6,
-          "pos": 5,
-          "value": null
+          "pos": 5
         },
-        "across": null
+        "across": false,
+        "value": ""
       },
-      "-f": null,
-      "-g": {
-        "down": null,
+      "x6": false,
+      "x7": {
+        "down": false,
         "across": {
           "word": 4,
-          "pos": 2,
-          "value": null
-        }
+          "pos": 2
+        },
+        "value": ""
       },
-      "-h": null,
-      "-i": {
-        "down": null,
+      "x8": false,
+      "x9": {
+        "down": false,
         "across": {
           "word": 5,
-          "pos": 2,
-          "value": null
-        }
+          "pos": 2
+        },
+        "value": ""
       }
     },
-    "-3": {
-      "-a": null,
-      "-b": {
-        "down": null,
+    "y3": {
+      "x1": false,
+      "x2": {
+        "down": false,
         "across": {
           "word": 1,
-          "pos": 3,
-          "value": null
-        }
+          "pos": 3
+        },
+        "value": ""
       },
-      "-c": null,
-      "-d": {
-        "down": null,
+      "x3": false,
+      "x4": {
+        "down": false,
         "across": {
           "word": 2,
-          "pos": 3,
-          "value": null
-        }
+          "pos": 3
+        },
+        "value": ""
       },
-      "-e": null,
-      "-f": {
-        "down": null,
+      "x5": false,
+      "x6": {
+        "down": false,
         "across": {
           "word": 7,
-          "pos": 1,
-          "value": null
-        }
-      },
-      "-g": null,
-      "-h": {
-        "down": {
-          "word": 8,
-          "pos": 1,
-          "value": null
+          "pos": 1
         },
-        "across": null
+        "value": ""
       },
-      "-i": {
+      "x7": false,
+      "x8": {
         "down": {
           "word": 8,
-          "pos": 2,
-          "value": null
+          "pos": 1
+        },
+        "across": false,
+        "value": ""
+      },
+      "x9": {
+        "down": {
+          "word": 8,
+          "pos": 2
         },
         "across": {
           "word": 5,
-          "pos": 3,
-          "value": null
-        }
+          "pos": 3
+        },
+        "value": ""
       }
     },
-    "-4": {
-      "-a": {
+    "y4": {
+      "x1": {
         "down": {
           "word": 9,
-          "pos": 1,
-          "value": null
+          "pos": 1
         },
         "across": {
           "word": 9,
-          "pos": 1,
-          "value": null
-        }
+          "pos": 1
+        },
+        "value": ""
       },
-      "-b": {
+      "x2": {
         "down": {
           "word": 9,
-          "pos": 2,
-          "value": null
+          "pos": 2
         },
         "across": {
           "word": 1,
-          "pos": 4,
-          "value": null
-        }
+          "pos": 4
+        },
+        "value": ""
       },
-      "-c": null,
-      "-d": {
+      "x3": false,
+      "x4": {
         "down": {
           "word": 10,
-          "pos": 1,
-          "value": null
+          "pos": 1
         },
         "across": {
           "word": 2,
-          "pos": 4,
-          "value": null
-        }
-      },
-      "-e": {
-        "down": {
-          "word": 10,
-          "pos": 2,
-          "value": null
+          "pos": 4
         },
-        "across": null
+        "value": ""
       },
-      "-f": {
+      "x5": {
         "down": {
           "word": 10,
-          "pos": 3,
-          "value": null
+          "pos": 2
+        },
+        "across": false,
+        "value": ""
+      },
+      "x6": {
+        "down": {
+          "word": 10,
+          "pos": 3
         },
         "across": {
           "word": 7,
-          "pos": 2,
-          "value": null
-        }
+          "pos": 2
+        },
+        "value": ""
       },
-      "-g": {
+      "x7": {
         "down": {
           "word": 10,
-          "pos": 4,
-          "value": null
+          "pos": 4
         },
         "across": {
           "word": 11,
-          "pos": 1,
-          "value": null
-        }
+          "pos": 1
+        },
+        "value": ""
       },
-      "-h": null,
-      "-i": {
-        "down": null,
+      "x8": false,
+      "x9": {
+        "down": false,
         "across": {
           "word": 5,
-          "pos": 4,
-          "value": null
-        }
+          "pos": 4
+        },
+        "value": ""
       }
     },
-    "-5": {
-      "-a": {
-        "down": null,
+    "y5": {
+      "x1": {
+        "down": false,
         "across": {
           "word": 9,
-          "pos": 2,
-          "value": null
-        }
+          "pos": 2
+        },
+        "value": ""
       },
-      "-b": null,
-      "-c": null,
-      "-d": {
-        "down": null,
+      "x2": false,
+      "x3": false,
+      "x4": {
+        "down": false,
         "across": {
           "word": 2,
-          "pos": 5,
-          "value": null
-        }
+          "pos": 5
+        },
+        "value": ""
       },
-      "-e": null,
-      "-f": {
+      "x5": false,
+      "x6": {
         "down": {
           "word": 12,
-          "pos": 1,
-          "value": null
+          "pos": 1
         },
         "across": {
           "word": 7,
-          "pos": 5,
-          "value": null
-        }
+          "pos": 5
+        },
+        "value": ""
       },
-      "-g": {
+      "x7": {
         "down": {
           "word": 12,
-          "pos": 2,
-          "value": null
+          "pos": 2
         },
         "across": {
           "word": 11,
-          "pos": 2,
-          "value": null
-        }
-      },
-      "-h": {
-        "down": {
-          "word": 12,
-          "pos": 3,
-          "value": null
+          "pos": 2
         },
-        "across": null
+        "value": ""
       },
-      "-i": {
+      "x8": {
         "down": {
           "word": 12,
-          "pos": 4,
-          "value": null
+          "pos": 3
+        },
+        "across": false,
+        "value": ""
+      },
+      "x9": {
+        "down": {
+          "word": 12,
+          "pos": 4
         },
         "across": {
           "word": 5,
-          "pos": 5,
-          "value": null
-        }
+          "pos": 5
+        },
+        "value": ""
       }
     }
   }

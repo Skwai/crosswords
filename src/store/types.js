@@ -1,3 +1,4 @@
 export const SET_FOCUSED_WORD = 'SET_FOCUSED_WORD'
 export const REMOVE_FOCUSED_WORD = 'REMOVE_FOCUSED_WORD'
 export const SET_BOARD = 'SET_BOARD'
+export const SET_CELL_VALUE = 'SET_CELL_VALUE'

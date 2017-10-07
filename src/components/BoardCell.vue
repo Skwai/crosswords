@@ -2,8 +2,8 @@
   <div
     class="BoardCell"
     :data-question="cell === '%' ? cellIndex + 1 : false"
-    :class="{ '-blank': cell === 'X', '-start': isStart, '-focused': isFocused }"
-    :data-num="'1'"
+    :class="{ '-blank': isBlank, '-start': isStart, '-focused': isFocused }"
+    :data-start="start"
     :data-across="words.across"
     :data-down="words.down"
   ><input
@@ -15,6 +15,7 @@
     @focus="focus"
     @mousedown="mousedown"
     @blur="blur"
+    :value="cell.value"
   ></div>
 </template>
 
@@ -22,16 +23,25 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  props: ['cell'],
+  props: ['cell', 'x', 'y'],
 
   methods: {
     keydown (ev) {
       const { key } = ev
-      if (key.length !== 1 || key.toLowerCase() === key.toUpperCase()) {
-        return false
-      }
-      ev.target.value = key.toUpperCase()
-      this.$listeners.next()
+
+      if (key.length !== 1 || key.toLowerCase() === key.toUpperCase()) return false
+
+      const { x, y, boardId } = this
+      const value = key.toUpperCase()
+      ev.target.value = value
+      this.$store.dispatch('setCellValue', {
+        value,
+        x,
+        y,
+        boardId
+      })
+      this.$listeners.next(x, y)
+      ev.target.blur()
     },
 
     focus () {
@@ -59,6 +69,16 @@ export default {
     }
   },
 
+  data () {
+    return {
+      boardId: null
+    }
+  },
+
+  created () {
+    this.boardId = this.$route.params.boardId
+  },
+
   computed: {
     isFocused () {
       /*
@@ -69,12 +89,7 @@ export default {
     },
 
     isBlank () {
-      return this.cell === null
-    },
-
-    isStart () {
-      const { cell } = this
-      return cell && (cell.down && cell.down.pos === 1) || (cell.across && cell.across.pos === 1)
+      return this.cell === false
     },
 
     words () {
@@ -86,13 +101,15 @@ export default {
       }
     },
 
-    pos () {
-      const { cell: { down, across } } = this
+    isStart () {
+      return !!this.start
+    },
 
-      return {
-        down: down && down.pos ? down.pos : null,
-        across: across && across.pos ? across.pos : null
-      }
+    start () {
+      if (this.isBlank) return false
+      const { cell: { down, across } } = this
+      const found = [down, across].find(w => w && w.pos === 1)
+      return found && 'word' in found ? found.word : false
     },
 
     ...mapGetters(['focusedWord'])
@@ -139,7 +156,7 @@ export default {
       line-height: 1
       position: absolute
       font-size: 0.75rem
-      content: attr(data-num)
+      content: attr(data-start)
 
   &.-blank
     background: transparent

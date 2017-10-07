@@ -9,7 +9,17 @@ export const unfocusWord = ({ commit }) => {
   commit(types.REMOVE_FOCUSED_WORD)
 }
 
-export const loadBoard = async ({ commit }, id) => {
-  const snapshot = await db.ref('boards').child(id).once('value')
-  commit(types.SET_BOARD, snapshot.val())
+export const loadBoard = async ({ commit }, boardId) => {
+  db.ref('boards').child(boardId).on('value', (snapshot) => {
+    commit(types.SET_BOARD, snapshot.val())
+  })
+}
+
+export const setCellValue = async ({ commit }, {
+  value,
+  x,
+  y,
+  boardId
+}) => {
+  await db.ref(`boards/${boardId}/${y}/${x}/value`).set(value)
 }
