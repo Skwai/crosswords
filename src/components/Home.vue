@@ -25,7 +25,7 @@ export default {
     async generate () {
       this.loading = true
       await new Promise((resolve) => setTimeout(resolve, 2000))
-      this.$router.push({ name: 'board', params: { boardId: 1 } })
+      this.$router.push({ name: 'game', params: { boardId: 1 } })
       this.loading = false
     }
   }

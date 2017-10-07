@@ -6,6 +6,8 @@
     :data-start="start"
     :data-across="words.across"
     :data-down="words.down"
+    :data-x="x"
+    :data-y="y"
   ><input
     class="BoardCell__Input"
     v-if="!isBlank"
@@ -45,21 +47,19 @@ export default {
     },
 
     focus () {
-      if (!this.isBlank) {
-        const { cell } = this
-        this.$store.dispatch('focusWord', {
-          across: cell.across ? cell.across.word : null,
-          down: null
-        })
-      }
+      const { cell: { across, down } } = this
+      this.$store.dispatch('focusWord', {
+        across: across ? across.word : null,
+        down: !across ? down.word : null
+      })
     },
 
     mousedown () {
-      const { isFocused, cell, focusedWord } = this
-      if (isFocused && cell.down && cell.across) {
+      const { isFocused, cell: { down, across }, focusedWord } = this
+      if (isFocused && down && across) {
         this.$store.dispatch('focusWord', {
-          across: focusedWord.across ? null : cell.across.word,
-          down: focusedWord.down ? null : cell.down.word
+          across: focusedWord.across ? null : across.word,
+          down: focusedWord.down ? null : down.word
         })
       }
     },
@@ -81,11 +81,10 @@ export default {
 
   computed: {
     isFocused () {
-      /*
-      const { cell, focusedWord } = this
-      return cell && (cell.across && cell.across.word === focusedWord.across) || (cell.down && cell.down.word === focusedWord.down)
-      */
-      return false
+      if (this.isBlank) return false
+
+      const { cell: { down, across }, focusedWord } = this
+      return ((down || across) && (across.word === focusedWord.across) || (down.word === focusedWord.down))
     },
 
     isBlank () {
@@ -141,13 +140,15 @@ export default {
     text-transform: uppercase
     margin: 0
     padding: 0
+    transform: translate3d(0,0,0)
+    backface-visibility: none
 
     .-focused &
-      background: #eaebec
+      background: rgba(0,0,0,.1)
 
     &:focus
       outline: 0
-      background: #eaebec
+      background: rgba(0,0,0,.1)
 
   &.-start
     &::before

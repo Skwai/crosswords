@@ -15,6 +15,7 @@ export default new Vuex.Store({
   mutations,
   state: {
     board: null,
+    boardId: null,
     focusedWord: {
       across: null,
       down: null

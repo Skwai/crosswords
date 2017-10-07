@@ -14,5 +14,9 @@ export default {
 
   [types.SET_BOARD] (state, board) {
     state.board = board
+  },
+
+  [types.SET_BOARD_ID] (state, boardId) {
+    state.boardId = boardId
   }
 }

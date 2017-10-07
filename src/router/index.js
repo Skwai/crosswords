@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Board from '@/components/Board'
+import Game from '@/components/Game'
 
 Vue.use(Router)
 
@@ -14,8 +14,8 @@ export default new Router({
     },
     {
       path: '/board/:boardId',
-      name: 'board',
-      component: Board
+      name: 'game',
+      component: Game
     }
   ]
 })

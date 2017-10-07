@@ -10,6 +10,7 @@ export const unfocusWord = ({ commit }) => {
 }
 
 export const loadBoard = async ({ commit }, boardId) => {
+  commit(types.SET_BOARD_ID, boardId)
   db.ref('boards').child(boardId).on('value', (snapshot) => {
     commit(types.SET_BOARD, snapshot.val())
   })

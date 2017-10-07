@@ -8,6 +8,7 @@
         :key="x"
         :x="x"
         :y="y"
+        :boardId="boardId"
         @next="next"
       />
     </div>
@@ -20,6 +21,8 @@ import BoardCell from '@/components/BoardCell'
 import Loading from '@/components/Loading'
 
 export default {
+  props: ['boardId'],
+
   components: {
     BoardCell,
     Loading
@@ -37,12 +40,11 @@ export default {
 
   methods: {
     next () {
-      console.log('next')
     }
   },
 
   async created () {
-    await this.$store.dispatch('loadBoard', this.$route.params.boardId)
+    await this.$store.dispatch('loadBoard', this.boardId)
     this.loading = false
   }
 }
@@ -86,7 +88,7 @@ export default {
   border: currentColor solid 1px
   background: currentColor
   box-shadow: currentColor 0 2px 0
-  border-radius: 3px
+  border-radius: borderRadius
   overflow: hidden
   animation: jiggle 0.82s cubic-bezier(.36,.07,.19,.97) both
   backface-visibility: hidden
