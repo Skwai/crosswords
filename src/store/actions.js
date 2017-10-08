@@ -54,7 +54,14 @@ export const setCellValue = async ({ commit }, {
   value,
   x,
   y,
-  boardId
+  boardId,
+  userId
 }) => {
-  await db.ref(`boards/${boardId}/${y}/${x}/value`).set(value)
+  const ref = db.ref(`boards/${boardId}/${y}/${x}`)
+  await ref.transaction((data) => {
+    return Object.assign(data, {
+      value,
+      user: userId
+    })
+  })
 }

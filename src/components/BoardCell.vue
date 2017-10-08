@@ -33,16 +33,16 @@ export default {
       const { key } = ev
       // check if alpha character
       if (key.length === 1 && key.toLowerCase() !== key.toUpperCase()) {
-        const { x, y, boardId } = this
+        const { x, y, boardId, uid } = this
         const value = key.toUpperCase()
         ev.target.value = value || ''
         this.$store.dispatch('setCellValue', {
           value,
           x,
           y,
-          boardId
+          boardId,
+          userId: uid
         })
-        // this.$listeners.next(x, y)
         ev.target.blur()
       }
     },
@@ -117,7 +117,7 @@ export default {
 
 <style lang="stylus">
 .BoardCell
-  cellSize = 8vmin
+  cellSize = 6vw
   position: relative
   width: cellSize
   height: cellSize

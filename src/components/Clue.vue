@@ -26,6 +26,7 @@ export default {
       const { focusedWord, num, dir } = this
       return focusedWord && focusedWord[dir] === Number(num)
     },
+
     ...mapGetters(['uid', 'focusedWord', 'stringToHSL'])
   }
 }

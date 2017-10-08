@@ -9,7 +9,6 @@
         :x="x"
         :y="y"
         :boardId="boardId"
-        @next="next"
       />
     </div>
   </div>
@@ -36,11 +35,6 @@ export default {
 
   computed: {
     ...mapGetters(['board'])
-  },
-
-  methods: {
-    next () {
-    }
   },
 
   async created () {
