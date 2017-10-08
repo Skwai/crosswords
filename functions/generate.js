@@ -18,6 +18,9 @@ class Generator {
     this.size = size
     this.words = words
     this.grid = []
+    this.down = []
+    this.across = []
+
     for (var i = -1; i < size + 1; i++) {
       this.grid[i] = []
       for (var j = -1; j < size + 1; j++) {
@@ -69,6 +72,7 @@ class Generator {
 
   addColWord (row, col, word) {
     if (word) {
+      this.down.push({row, col, word})
       for (var i = 0; i < word.length; i++) {
         this.deadzone(row + i, col - 1)
         this.grid[row + i][col] = word[i]
@@ -79,6 +83,7 @@ class Generator {
 
   addRowWord (row, col, word) {
     if (word) {
+      this.across.push({row, col, word})
       for (var i = 0; i < word.length; i++) {
         this.grid[row][col + i] = word[i]
       }
@@ -112,6 +117,14 @@ class Generator {
       str += '\n'
     }
     console.log(str)
+    console.log('Down: ')
+    for (let i = 0; i < this.down.length; i++) {
+      console.log(this.down[i])
+    }
+    console.log('Across: ')
+    for (let i = 0; i < this.across.length; i++) {
+      console.log(this.across[i])
+    }
     return str
   }
 
