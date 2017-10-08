@@ -2,15 +2,16 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 admin.initializeApp(functions.config().firebase)
 
-module.exports = functions.https.onRequest(async (request, response) => {
+module.exports = functions.https.onRequest((request, response) => {
   const ref = admin.database().ref('words')
-  const wordData = await ref.once('value')
-  const words = Object.keys(wordData.val())
-  const size = request.query.size || 16
+  ref.once('value').then((wordData) => {
+    const words = Object.keys(wordData.val())
+    const size = request.query.size || 16
 
-  const gen = new Generator(size, words)
-  gen.generateBoard()
-  response.status(200).send(gen.printBoard())
+    const gen = new Generator(size, words)
+    gen.generateBoard()
+    response.status(200).send(gen.printBoard())
+  })
 })
 
 class Generator {
