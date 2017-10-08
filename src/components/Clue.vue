@@ -1,5 +1,8 @@
 <template>
-  <div class="Clue" :class="{ '-focused': isFocused }">
+  <div
+    class="Clue"
+    :style="focusedStyle"
+  >
     <strong class="Clue__Num">{{num}}</strong>
     <span class="Clue__Content"><slot /></span>
   </div>
@@ -12,11 +15,18 @@ export default {
   props: ['num', 'dir'],
 
   computed: {
+    focusedStyle () {
+      if (!this.isFocused) return null
+      return {
+        backgroundColor: this.stringToHSL(this.uid)
+      }
+    },
+
     isFocused () {
       const { focusedWord, num, dir } = this
       return focusedWord && focusedWord[dir] === Number(num)
     },
-    ...mapGetters(['focusedWord'])
+    ...mapGetters(['uid', 'focusedWord', 'stringToHSL'])
   }
 }
 </script>
@@ -29,9 +39,6 @@ export default {
   display: flex
   padding: spacingSmall
   margin: 0 (-1 * spacingSmall)
-
-  &.-focused
-    background: rgba(#BD10E0, .2)
 
   &__Num
     margin-right: spacingSmall

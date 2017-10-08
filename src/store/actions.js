@@ -10,7 +10,6 @@ export const auth = async ({ commit, state }) => {
     fb.auth().onAuthStateChanged(({ uid }) => {
       localStorage.setItem(config.UID_STORAGE_KEY, uid)
       commit(types.SET_UID, uid)
-      commit(types.SET_COLOR, uid)
     })
   } catch (err) {
     console.error(err)
@@ -46,7 +45,9 @@ export const loadGame = async ({ commit, state }, gameId) => {
 }
 
 export const joinGame = async ({ commit }, { gameId, userId }) => {
-  await db.ref(`games/${gameId}/users/${userId}`).set(true)
+  if (userId && gameId) {
+    await db.ref(`games/${gameId}/users/${userId}`).set(true)
+  }
 }
 
 export const setCellValue = async ({ commit }, {
