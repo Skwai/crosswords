@@ -2,7 +2,8 @@
   <div
     class="BoardCell"
     :data-question="cell === '%' ? cellIndex + 1 : false"
-    :class="{ '-blank': isBlank, '-start': isStart, '-focused': isFocused }"
+    :class="{ '-blank': isBlank, '-start': isStart }"
+    :style="focusedStyles"
     :data-start="start"
     :data-across="words.across"
     :data-down="words.down"
@@ -30,7 +31,7 @@ export default {
   methods: {
     keydown (ev) {
       const { key } = ev
-
+      // check if alpha character
       if (key.length === 1 && key.toLowerCase() !== key.toUpperCase()) {
         const { x, y, boardId } = this
         const value = key.toUpperCase()
@@ -41,7 +42,7 @@ export default {
           y,
           boardId
         })
-        this.$listeners.next(x, y)
+        // this.$listeners.next(x, y)
         ev.target.blur()
       }
     },
@@ -72,9 +73,17 @@ export default {
   computed: {
     isFocused () {
       if (this.isBlank) return false
-
       const { cell: { down, across }, focusedWord } = this
       return ((down || across) && (across.word === focusedWord.across) || (down.word === focusedWord.down))
+    },
+
+    focusedStyles () {
+      if (!this.isFocused) return null
+      const color = this.stringToHSL(this.uid)
+      return {
+        backgroundColor: color,
+        boxShadow: `inset ${color} 0 0 0 3px`
+      }
     },
 
     isBlank () {
@@ -101,7 +110,7 @@ export default {
       return found && 'word' in found ? found.word : false
     },
 
-    ...mapGetters(['focusedWord', 'boardId'])
+    ...mapGetters(['focusedWord', 'boardId', 'stringToHSL', 'uid'])
   }
 }
 </script>
@@ -134,13 +143,8 @@ export default {
     transform: translate3d(0,0,0)
     backface-visibility: none
 
-    .-focused &
-      box-shadow: inset rgba(#BD10E0, .2) 0 0 0 3px
-      background: rgba(#BD10E0, .2)
-
     &:focus
       outline: 0
-      background: rgba(#BD10E0, .2)
 
   &.-start
     &::before

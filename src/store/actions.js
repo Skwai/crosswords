@@ -1,5 +1,20 @@
 import * as types from './types'
-import db from '@/services/firebase'
+import db, { fb } from '@/services/firebase'
+import config from '@/config'
+
+export const auth = async ({ commit, state }) => {
+  if (state.uid) return
+
+  try {
+    await fb.auth().signInAnonymously()
+    fb.auth().onAuthStateChanged(({ uid }) => {
+      localStorage.setItem(config.UID_STORAGE_KEY, uid)
+      commit(types.SET_UID, uid)
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 export const focusWord = ({ commit }, word) => {
   commit(types.SET_FOCUSED_WORD, word)
@@ -19,13 +34,20 @@ export const loadBoard = async ({ commit }, boardId) => {
   })
 }
 
-export const loadGame = async ({ commit }, gameId) => {
+export const loadGame = async ({ commit, state }, gameId) => {
+  commit(types.SET_GAME_ID, gameId)
   return new Promise((resolve) => {
     db.ref(`games/${gameId}`).on('value', (snapshot) => {
       resolve()
       commit(types.SET_GAME, snapshot.val())
     })
   })
+}
+
+export const joinGame = async ({ commit }, { gameId, userId }) => {
+  if (userId && gameId) {
+    await db.ref(`games/${gameId}/users/${userId}`).set(true)
+  }
 }
 
 export const setCellValue = async ({ commit }, {

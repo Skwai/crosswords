@@ -13,7 +13,6 @@ export default {
   },
 
   [types.SET_GAME] (state, game) {
-    console.log(game)
     state.game = game
   },
 
@@ -23,5 +22,13 @@ export default {
 
   [types.SET_BOARD_ID] (state, boardId) {
     state.boardId = boardId
+  },
+
+  [types.SET_UID] (state, uid) {
+    state.uid = uid
+  },
+
+  [types.SET_GAME_ID] (state, gameId) {
+    state.gameId = gameId
   }
 }

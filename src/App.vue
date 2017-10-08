@@ -8,7 +8,8 @@
 
 <script>
 export default {
-  components: {
+  async created () {
+    await this.$store.dispatch('auth')
   }
 }
 </script>

@@ -3,15 +3,22 @@
     <div
       v-for="(user, id) in users"
       class="Users__User"
+        :data-id="id"
         :key="id"
-        :style="{ background: user }"
+        :style="{ backgroundColor: stringToHSL(id) }"
     ></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['users']
+  props: ['users'],
+
+  computed: {
+    ...mapGetters(['uid', 'stringToHSL'])
+  }
 }
 </script>
 

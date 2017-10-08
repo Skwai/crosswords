@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 import mutations from './mutations'
+import config from '@/config'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,10 @@ export default new Vuex.Store({
     board: null,
     boardId: null,
     game: null,
+    gameId: null,
+
+    uid: localStorage.getItem(config.UID_STORAGE_KEY) || null,
+
     focusedWord: {
       across: null,
       down: null
