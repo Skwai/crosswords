@@ -26,5 +26,9 @@ export default {
 
   [types.SET_UID] (state, uid) {
     state.uid = uid
+  },
+
+  [types.SET_GAME_ID] (state, gameId) {
+    state.gameId = gameId
   }
 }

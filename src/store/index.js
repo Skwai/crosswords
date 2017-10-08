@@ -18,6 +18,8 @@ export default new Vuex.Store({
     board: null,
     boardId: null,
     game: null,
+    gameId: null,
+
     uid: localStorage.getItem(config.UID_STORAGE_KEY) || null,
 
     focusedWord: {

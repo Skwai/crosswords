@@ -36,6 +36,7 @@ export const loadBoard = async ({ commit }, boardId) => {
 }
 
 export const loadGame = async ({ commit, state }, gameId) => {
+  commit(types.SET_GAME_ID, gameId)
   return new Promise((resolve) => {
     db.ref(`games/${gameId}`).on('value', (snapshot) => {
       resolve()
