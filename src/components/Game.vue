@@ -27,16 +27,22 @@ export default {
 
   data () {
     return {
+      gameId: null,
       loading: false
     }
   },
 
   computed: {
-    ...mapGetters(['game'])
+    ...mapGetters(['game', 'uid'])
   },
 
   async created () {
-    await this.$store.dispatch('loadGame', this.$route.params.gameId)
+    this.gameId = this.$route.params.gameId
+    await this.$store.dispatch('loadGame', this.gameId)
+    await this.$store.dispatch('joinGame', {
+      gameId: this.gameId,
+      userId: this.uid
+    })
     this.loading = false
   }
 }
