@@ -6,132 +6,133 @@ module.exports = functions.https.onRequest(async (request, response) => {
   const ref = admin.database().ref('words')
   const wordData = await ref.once('value')
   const words = Object.keys(wordData.val())
-  response.status(200).send(words)
+  const size = request.query.size || 16
+
+  const gen = new Generator(size, words)
+  gen.generateBoard()
+  response.status(200).send(gen.printBoard())
 })
 
-// const size = 15
-// words = Object.keys(wordsData)
-// grid = []
+class Generator {
+  constructor (size, words) {
+    this.size = size
+    this.words = words
+    this.grid = []
+    for (var i = -1; i < size + 1; i++) {
+      this.grid[i] = []
+      for (var j = -1; j < size + 1; j++) {
+        this.grid[i][j] = '.'
+      }
+    }
+  }
 
-// for (var i = -1; i < size + 1; i++) {
-//   grid[i] = []
-//   for (var j = -1; j < size + 1; j++) {
-//     grid[i][j] = "."
-//   }
-// }
+  generateBoard () {
+    let row = 0
+    while (row < this.size) {
+      this.addRow(row)
+      row += 2
+    }
 
-// generateBoard()
-// printBoard()
+    for (var j = 0; j < 3; j++) {
+      for (var i = 0; i < this.size - 3; i++) {
+        this.addCol(i)
+      }
+    }
+  }
 
-// function generateBoard() {
-//   let row = 0;
-//   while (row < size) {
-//     addRow(row)
-//     row += 2
-//   }
+  addCol (row) {
+    let start = this.randInt(0, 4)
+    while (start < this.size) {
+      let len = this.randLength(3, this.size - row)
+      let reg = this.getRegex(row, start, len, false)
+      let word = this.randWord(reg)
+      this.addColWord(row, start, word, false)
+      start += this.randInt(2, 4)
+    }
+  }
 
-//   for (var j = 0; j < 3; j++) {
-//     for (var i = 0; i < size-3; i++) {
-//       addCol(i);
-//     }
-//   }
+  addRow (row) {
+    let start = this.randInt(0, this.size / 3 - 3)
+    let len = this.randLength(this.size - start)
+    let reg = this.getRegex(row, start, len)
+    let word = this.randWord(reg)
+    this.addRowWord(row, start, word)
 
-// }
+    start += len + this.randInt(1, this.size - 3 - len)
+    if (start + 3 <= this.size) {
+      len = this.randLength(this.size - start)
+      reg = this.getRegex(row, start, len)
+      word = this.randWord(reg)
+      this.addRowWord(row, start, word)
+    }
+  }
 
-// function addCol(row) {
-//   let start = randInt(0, 4)
-//   while (start < size) {
-//     let len = randLength(3, size-row);
-//     let reg = getRegex(row, start, len, false);
-//     let word = randWord(reg);
-//     addColWord(row, start, word, false);
-//     start += randInt(2, 4)
-//   }
+  addColWord (row, col, word) {
+    if (word) {
+      for (var i = 0; i < word.length; i++) {
+        this.deadzone(row + i, col - 1)
+        this.grid[row + i][col] = word[i]
+        this.deadzone(row + i, col + 1)
+      }
+    }
+  }
 
-// }
+  addRowWord (row, col, word) {
+    if (word) {
+      for (var i = 0; i < word.length; i++) {
+        this.grid[row][col + i] = word[i]
+      }
+      this.deadzone(row, col - 1)
+      this.deadzone(row, col + word.len)
+    }
+  }
 
-// function addRow(row) {
-//   let start = randInt(0, size/3-3);
-//   let len = randLength(size-start);
-//   let reg = getRegex(row, start, len);
-//   let word = randWord(reg);
-//   addRowWord(row, start, word);
+  deadzone (row, col) {
+    const c = this.grid[row][col]
+    if (c === '.') {
+      this.grid[row][col] = '`'
+    }
+  }
 
+  getRegex (row, col, len, left = true) {
+    let r = '^'
+    for (let i = 0; i < len; i++) {
+      r += this.grid[row + (left ? 0 : i)][col + (left ? i : 0)]
+    }
+    r += '$'
+    return new RegExp(r, 'i')
+  }
 
-//   start += len + randInt(1, size-3-len)
-//   if (start + 3 <= size) {
-//     len = randLength(size-start);
-//     reg = getRegex(row, start, len)
-//     word = randWord(reg);
-//     addRowWord(row, start, word);
-//   }
-// }
+  printBoard () {
+    let str = ''
+    for (var i = 0; i < this.size; i++) {
+      for (var j = 0; j < this.size; j++) {
+        str += this.grid[i][j].replace('`', '.') + '  '
+      }
+      str += '\n'
+    }
+    console.log(str)
+    return str
+  }
 
+  randWord (reg) {
+    const samples = this.words.filter((w) => reg.test(w))
+    return samples[this.randInt(0, samples.length)]
+  }
 
-// function addColWord(row, col, word) {
-//   if (word) {
-//     for (var i = 0; i < word.length; i++) {
-//       deadzone(row+i, col - 1)
-//       grid[row + i][col] = word[i]
-//       deadzone(row+i, col + 1);
-//     }
-//   }
-// }
+  randLength (max) {
+    const min = 3
+    max = Math.floor(max) + 1
+    return Math.floor(Math.random() * (max - min)) + min
+  }
 
-// function addRowWord(row, col, word) {
-//   if (word) {
-//     for (var i = 0; i < word.length; i++) {
-//       grid[row][col + i] = word[i]
-//     }
-//     deadzone(row, col-1)
-//     deadzone(row, col+word.len)
-//   }
-// }
+  randInt (min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min)) + min
+  }
 
-// function deadzone(row, col) {
-//   const c = grid[row][col];
-//   if (c == ".") {
-//     grid[row][col] = "`"
-//   }
-// }
-
-// function getRegex(row, col, len, left = true) {
-//   let r = "^"
-//   for (var i = 0; i < len; i++) {
-//     r += grid[row + (left ? 0 : i)][col + (left ? i : 0)]
-//   }
-//   r += "$"
-//   return new RegExp(r, "i")
-// }
-
-// function printBoard() {
-//   let str = ""
-//   for (var i = 0; i < size; i++) {
-//     for (var j = 0; j < size; j++) {
-//       str += grid[i][j].replace("`", ".") + "  "
-//     }
-//     str += "\n"
-//   }
-//   console.log(str)
-// }
-
-// function randWord(reg) {
-//   const samples = words.filter((w) => reg.test(w));
-//   return samples[randInt(0, samples.length)]
-// }
-
-// function randLength(max) {
-//   min = 3;
-//   max = Math.floor(max) + 1;
-//   return Math.floor(Math.random() * (max - min)) + min;
-// }
-
-// function randInt(min, max) {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min)) + min;
-// }
-
-// function randBool(max) {
-//   return randInt(2) === 1;
-// }
+  randBool (max) {
+    return this.randInt(2) === 1
+  }
+}
