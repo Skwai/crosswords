@@ -24,9 +24,15 @@ export default {
   methods: {
     async generate () {
       this.loading = true
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      this.$router.push({ name: 'game', params: { gameId: 'game1' } })
-      this.loading = false
+      try {
+        const response = await fetch('/generate')
+        const data = await response.json()
+        this.$router.push({ name: 'game', params: { gameId: data.game } })
+      } catch (err) {
+        console.error(err)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }
