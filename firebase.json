@@ -11,6 +11,10 @@
     ],
     "rewrites": [
       {
+        "source": "/generate",
+        "function": "generate"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
