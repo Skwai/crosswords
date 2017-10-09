@@ -18,7 +18,7 @@ export default {
     focusedStyle () {
       if (!this.isFocused) return null
       return {
-        backgroundColor: this.stringToHSL(this.uid)
+        backgroundColor: this.stringToHSL(this.uid, 0.2)
       }
     },
 

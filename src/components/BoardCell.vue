@@ -3,23 +3,29 @@
     class="BoardCell"
     :data-question="cell === '%' ? cellIndex + 1 : false"
     :class="{ '-blank': isBlank, '-start': isStart }"
-    :style="focusedStyles"
     :data-start="start"
     :data-across="words.across"
     :data-down="words.down"
     :data-x="x"
     :data-y="y"
-  ><input
-    class="BoardCell__Input"
-    v-if="!isBlank"
-    maxlength="1"
-    minlength="1"
-    @keydown="keydown"
-    @focus="focus"
-    @mousedown="mousedown"
-    @blur="blur"
-    :value="cell.value"
-  ></div>
+  >
+    <div
+      :style="cellStyles"
+    >
+      <span class="BoardCell__User" :style="{ backgroundColor: cellUserColor }"></span>
+      <input
+        class="BoardCell__Input"
+        v-if="!isBlank"
+        maxlength="1"
+        minlength="1"
+        @keydown="keydown"
+        @focus="focus"
+        @mousedown="mousedown"
+        @blur="blur"
+        :value="cell.value"
+      >
+    </div>
+  </div>
 </template>
 
 <script>
@@ -71,15 +77,20 @@ export default {
   },
 
   computed: {
+    cellUserColor () {
+      const { cell } = this
+      return cell.user ? this.stringToHSL(cell.user) : null
+    },
+
     isFocused () {
       if (this.isBlank) return false
       const { cell: { down, across }, focusedWord } = this
       return ((down || across) && (across.word === focusedWord.across) || (down.word === focusedWord.down))
     },
 
-    focusedStyles () {
+    cellStyles () {
       if (!this.isFocused) return null
-      const color = this.stringToHSL(this.uid)
+      const color = this.stringToHSL(this.uid, 0.2)
       return {
         backgroundColor: color,
         boxShadow: `inset ${color} 0 0 0 3px`
@@ -117,7 +128,8 @@ export default {
 
 <style lang="stylus">
 .BoardCell
-  cellSize = 6vw
+  min-width: 4rem
+  min-height: 4rem
   position: relative
   width: cellSize
   height: cellSize
@@ -135,7 +147,7 @@ export default {
     border: 0
     background: transparent
     text-align: center
-    font-size: 4vmin
+    font-size: 1.5rem
     font-family: inherit
     text-transform: uppercase
     margin: 0
@@ -152,9 +164,18 @@ export default {
       left: 0.25rem
       line-height: 1
       position: absolute
-      font-size: 2vmin
+      font-size: 0.875rem
       content: attr(data-start)
 
   &.-blank
     background: transparent
+
+  &__User
+    position: absolute
+    width: 0.65rem
+    height: 0.65rem
+    background: transparent
+    border-radius: 50%
+    bottom: 0.25rem
+    left: 0.25rem
 </style>

@@ -2,19 +2,11 @@
   <div class="Clues">
     <div class="Clues__Col">
       <h4>Down</h4>
-      <Clue num="1" dir="down">The principal church of a city</Clue>
-      <Clue num="2" dir="down">Dancing act heard close to Torvill and Dean's workplace</Clue>
-      <Clue num="3" dir="down">Convert (novel) for the screen</Clue>
-      <Clue num="4" dir="down">The principal church of a city</Clue>
-      <Clue num="5" dir="down">The principal church of a city</Clue>
+      <Clue v-for="(clue, key) in down" :key="key" :num="key" dir="down">{{clue}}</Clue>
     </div>
     <div class="Clues__Col">
       <h4>Across</h4>
-      <Clue num="1" dir="across">The principal church of a city</Clue>
-      <Clue num="2" dir="across">Dancing act heard close to Torvill and Dean's workplace</Clue>
-      <Clue num="3" dir="across">Convert (novel) for the screen</Clue>
-      <Clue num="4" dir="across">Convert (novel) for the screen</Clue>
-      <Clue num="5" dir="across">Convert (novel) for the screen</Clue>
+      <Clue v-for="(clue, key) in across" :key="key" :num="key" dir="across">{{clue}}</Clue>
     </div>
   </div>
 </template>
@@ -23,10 +15,27 @@
 import Clue from '@/components/Clue'
 
 export default {
-  props: ['size'],
+  props: ['clues'],
 
   components: {
     Clue
+  },
+
+  computed: {
+    across () {
+      const { clues: { across } } = this
+      return Object.keys(across).reduce((obj, k) => {
+        const num = k.replace(/\D/g, '')
+        return Object.assign(obj, { [num]: across[k] })
+      }, {})
+    },
+    down () {
+      const { clues: { down } } = this
+      return Object.keys(down).reduce((obj, k) => {
+        const num = k.replace(/\D/g, '')
+        return Object.assign(obj, { [num]: down[k] })
+      }, {})
+    }
   }
 }
 </script>

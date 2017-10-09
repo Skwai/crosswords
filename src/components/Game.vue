@@ -3,7 +3,7 @@
   <div class="Game" v-else-if="game">
     <Users :users="game.users" />
     <Board :boardId="game.board" />
-    <Clues />
+    <Clues :clues="game.clues" />
     <!--<GamePermalink :boardId="game.board" />-->
   </div>
 </template>

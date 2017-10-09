@@ -2,10 +2,48 @@
   "game1": {
     "board": "board1",
     "users": {
-      "user1": "#499AFF",
-      "user2": "#24C875",
-      "user3": "#F5A623",
-      "user4": "#BD10E0"
+      "user1": true,
+      "user2": true,
+      "user3": true,
+      "user4": true
+    },
+    "clues": {
+      "across": {
+        "c3": "The principal church of a city",
+        "c6": "Dancing act heard close to Torvill and Dean's workplace",
+        "c8": "Convert (novel) for the screen",
+        "c9": "Make active",
+        "c10": "Keen insight",
+        "c12": "Mental acuteness"
+      },
+      "down": {
+        "c1": "Intense",
+        "c2": "Sharp",
+        "c4": "Old sayings",
+        "c5": "Make active",
+        "c7": "Proverbs",
+        "c9": "Biblical character",
+        "c11": "Unyielding"
+      }
+    },
+    "cryptic": {
+      "across": {
+        "c3": "Thanks! But it really needs a cave to get things moving",
+        "c6": "That cat, Dave, took it and got it moving",
+        "c8": "Vacates it in such a way that it stimulates onen",
+        "c9": "I've to perform and show that I'm busy",
+        "c10": "It goes to a cave and is seen moving there",
+        "c12": "How he'll perform when getting to his car!"
+      },
+      "down": {
+        "c1": "It takes cars to please Thespians",
+        "c2": "Dancing act heard close to Torvill and Dean's workplace",
+        "c4": "Or such a cast requires performers of this calibre",
+        "c5": "Currently, long locks are worn by them on stage",
+        "c7": "How this cast performs",
+        "c9": "Currently, you men show quickness of perception",
+        "c11": "The cast is put out by certain parts of the play"
+      }
     }
   }
 }
