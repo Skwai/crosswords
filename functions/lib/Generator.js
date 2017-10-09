@@ -21,13 +21,11 @@ module.exports = class Generator {
       row += 2
     }
 
-    for (let j = 0; j < 3; j++) {
-      for (let i = 0; i < this.size - 3; i++) {
-        this.addCol(i)
-      }
+    for (let i = 0; i < this.size - 3; i++) {
+      this.addCol(i)
     }
 
-    const board = {}
+    const board = { words: { down: {}, across: {} } }
     for (let y = 1; y < this.size + 1; y++) {
       board[`y${y}`] = {}
       for (let x = 1; x <= this.size; x++) {
@@ -37,15 +35,17 @@ module.exports = class Generator {
 
     for (let i = 0; i < this.across.length; i++) {
       const { col, row, word } = this.across[i]
+      board.words.across[`w${i}`] = word
       for (let c = 0; c < word.length; c++) {
-        Object.assign(board[`y${row + 1}`][`x${col + 1 + c}`], { value: '', across: { word, pos: c + 1 } })
+        Object.assign(board[`y${row + 1}`][`x${col + 1 + c}`], { value: '', across: { word: i + 1, pos: c + 1 } })
       }
     }
 
     for (let i = 0; i < this.down.length; i++) {
       const { col, row, word } = this.down[i]
+      board.words.down[`w${i}`] = word
       for (let c = 0; c < word.length; c++) {
-        Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word, pos: c + 1 } })
+        Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word: i + 1, pos: c + 1 } })
       }
     }
     return board
@@ -54,10 +54,10 @@ module.exports = class Generator {
   addCol (row) {
     let start = this.randInt(0, 4)
     while (start < this.size) {
-      let len = this.randLength(3, this.size - row)
+      let len = this.randLength(this.size - row)
       let reg = this.getRegex(row, start, len, false)
       let word = this.randWord(reg)
-      this.addColWord(row, start, word, false)
+      this.addColWord(row, start, word)
       start += this.randInt(2, 4)
     }
   }
@@ -86,6 +86,8 @@ module.exports = class Generator {
         this.grid[row + i][col] = word[i]
         this.deadzone(row + i, col + 1)
       }
+      this.deadzone(row - 1, col)
+      this.deadzone(row + word.length, col)
     }
   }
 
