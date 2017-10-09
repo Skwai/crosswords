@@ -13,8 +13,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "seed": "./seed.sh",
-    "deploy": "yarn build && firebase deploy",
-    "generate": "node generate/generate.js"
+    "deploy": "yarn build && firebase deploy"
   },
   "dependencies": {
     "firebase": "^4.5.0",
