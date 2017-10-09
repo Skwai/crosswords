@@ -125,8 +125,7 @@ export default {
 
 <style lang="stylus">
 .BoardCell
-  min-width: 4rem
-  min-height: 4rem
+  cellSize = 3.5rem
   position: relative
   width: cellSize
   height: cellSize

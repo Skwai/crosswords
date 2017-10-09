@@ -1,13 +1,13 @@
 <template>
   <Loading v-if="loading" />
   <div class="Board" v-else>
-    <div v-for="(row, y) in board" :key="y" class="Board__Row">
+    <div v-for="(row, y) in sortKeys(board)" :key="y" class="Board__Row">
       <BoardCell
-        v-for="(cell, x) in row"
+        v-for="(cell, x) in sortKeys(row)"
         :cell="cell"
         :key="x"
-        :x="x"
-        :y="y"
+        :x="'x' + x"
+        :y="'y' + y"
         :boardId="boardId"
       />
     </div>
@@ -30,6 +30,13 @@ export default {
   data () {
     return {
       loading: true
+    }
+  },
+
+  methods: {
+    sortKeys (obj) {
+      return Object.entries(obj)
+        .reduce((obj, [k, v]) => Object.assign(obj, { [k.replace(/\D/g, '')]: v }), {})
     }
   },
 
@@ -89,7 +96,7 @@ export default {
   animation: jiggle 0.82s cubic-bezier(.36,.07,.19,.97) both
   backface-visibility: hidden
   perspective: 1000px
-  max-width: 40rem
+  max-width: 100%
   margin: 0 auto
 
   &__Row
