@@ -15,11 +15,10 @@ module.exports = functions.https.onRequest((request, response) => {
     const board = gen.generateBoard()
     gen.printBoard()
 
-    const gameId = db.ref('games').push().key
-    const boardId = db.ref('boards').push().key
+    const id = db.ref('games').push().key
 
     const game = {
-      board: boardId,
+      board: id,
       created: new Date(),
       words: board.words
     }
@@ -28,10 +27,10 @@ module.exports = functions.https.onRequest((request, response) => {
     delete board.words
 
     db.ref().update({
-      [`games/${gameId}`]: game,
-      [`boards/${boardId}`]: board
+      [`games/${id}`]: game,
+      [`boards/${id}`]: board
     }).then(() => {
-      response.status(200).send({ game: gameId })
+      response.status(200).send({ game: id })
     }).catch((err) => {
       console.error(err)
       response.send(500)
