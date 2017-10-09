@@ -26,6 +26,29 @@ module.exports = class Generator {
         this.addCol(i)
       }
     }
+
+    const board = {}
+    for (let y = 1; y < this.size + 1; y++) {
+      board[`y${y}`] = {}
+      for (let x = 1; x <= this.size; x++) {
+        board[`y${y}`][`x${x}`] = {}
+      }
+    }
+
+    for (let i = 0; i < this.across.length; i++) {
+      const { col, row, word } = this.across[i]
+      for (let c = 0; c < word.length; c++) {
+        Object.assign(board[`y${row + 1}`][`x${col + 1 + c}`], { value: '', across: { word, pos: c + 1 } })
+      }
+    }
+
+    for (let i = 0; i < this.down.length; i++) {
+      const { col, row, word } = this.down[i]
+      for (let c = 0; c < word.length; c++) {
+        Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word, pos: c + 1 } })
+      }
+    }
+    return board
   }
 
   addCol (row) {
@@ -73,7 +96,7 @@ module.exports = class Generator {
         this.grid[row][col + i] = word[i]
       }
       this.deadzone(row, col - 1)
-      this.deadzone(row, col + word.len)
+      this.deadzone(row, col + word.length)
     }
   }
 
@@ -94,7 +117,7 @@ module.exports = class Generator {
   }
 
   printBoard () {
-    let str = ''
+    let str = '\n'
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         str += this.grid[i][j].replace('`', '.') + '  '
@@ -102,14 +125,6 @@ module.exports = class Generator {
       str += '\n'
     }
     console.log(str)
-    console.log('Down: ')
-    for (let i = 0; i < this.down.length; i++) {
-      console.log(this.down[i])
-    }
-    console.log('Across: ')
-    for (let i = 0; i < this.across.length; i++) {
-      console.log(this.across[i])
-    }
     return str
   }
 
