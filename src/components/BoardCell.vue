@@ -17,8 +17,9 @@
         class="BoardCell__Input"
         v-if="!isBlank"
         maxlength="1"
-        minlength="1"
-        @keydown="keydown"
+        minlength="0"
+        pattern="[A-Za-z ]{1}"
+        @keydown="change"
         @focus="focus"
         @mousedown="mousedown"
         @blur="blur"
@@ -35,21 +36,19 @@ export default {
   props: ['cell', 'x', 'y'],
 
   methods: {
-    keydown (ev) {
-      const { key } = ev
-      // check if alpha character
-      if (key.length === 1 && key.toLowerCase() !== key.toUpperCase()) {
-        const { x, y, boardId, uid } = this
-        const value = key.toUpperCase()
-        ev.target.value = value || ''
+    change (ev) {
+      const { key, keyCode } = ev
+      const deletes = [8, 46, 32]
+      if ((key.toLowerCase() !== key.toUpperCase() && key.length === 1) || deletes.includes(keyCode)) {
+        const { x, y, boardId, uid: userId } = this
+        const value = deletes.includes(keyCode) ? '' : key.toUpperCase()
         this.$store.dispatch('setCellValue', {
           value,
           x,
           y,
           boardId,
-          userId: uid
+          userId
         })
-        ev.target.blur()
       }
     },
 

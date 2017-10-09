@@ -61,7 +61,7 @@ export const setCellValue = async ({ commit }, {
   await ref.transaction((data) => {
     return Object.assign(data, {
       value,
-      user: userId
+      user: value ? userId : null
     })
   })
 }
