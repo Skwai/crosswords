@@ -48,6 +48,19 @@ module.exports = class Generator {
         Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word: i + 1, pos: c + 1 } })
       }
     }
+
+    for (let y = 1; y < this.size + 1; y++) {
+      for (let x = 1; x <= this.size; x++) {
+        if (!Object.keys(board[`y${y}`][`x${x}`]).length) {
+          board[`y${y}`][`x${x}`] = false
+        } else {
+          const box = board[`y${y}`][`x${x}`]
+          box.across = box.across || false
+          box.down = box.down || false
+        }
+      }
+    }
+
     return board
   }
 
