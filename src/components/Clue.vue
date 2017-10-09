@@ -23,11 +23,11 @@ export default {
     },
 
     isFocused () {
-      const { focusedWord, num, dir } = this
-      return focusedWord && focusedWord[dir] === Number(num)
+      const { isFocusedWord, num, dir } = this
+      return isFocusedWord(dir, num)
     },
 
-    ...mapGetters(['uid', 'focusedWord', 'stringToHSL'])
+    ...mapGetters(['uid', 'isFocusedWord', 'stringToHSL'])
   }
 }
 </script>

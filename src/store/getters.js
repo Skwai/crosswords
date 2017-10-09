@@ -12,3 +12,8 @@ export const stringToHSL = () => (str, opacity = 1) => {
   const hue = Math.abs(num) % 360
   return `hsla(${hue}, 90%, 60%, ${opacity})`
 }
+export const isFocusedWord = ({ focusedWord }) => (dir, word) => {
+  if (!focusedWord || !dir || !word) return false
+  const [ d, w ] = focusedWord.split('.')
+  return d === dir && Number(w) === Number(word)
+}

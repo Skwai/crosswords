@@ -55,19 +55,15 @@ export default {
 
     focus () {
       const { cell: { across, down } } = this
-      this.$store.dispatch('focusWord', {
-        across: across ? across.word : null,
-        down: !across ? down.word : null
-      })
+      const word = across ? `across.${across.word}` : `down.${down.word}`
+      this.$store.dispatch('focusWord', word)
     },
 
     mousedown () {
       const { isFocused, cell: { down, across }, focusedWord } = this
       if (isFocused && down && across) {
-        this.$store.dispatch('focusWord', {
-          across: focusedWord.across ? null : across.word,
-          down: focusedWord.down ? null : down.word
-        })
+        const word = focusedWord.includes('across') ? `down.${down.word}` : `across.${across.word}`
+        this.$store.dispatch('focusWord', word)
       }
     },
 
@@ -83,9 +79,11 @@ export default {
     },
 
     isFocused () {
-      if (this.isBlank) return false
-      const { cell: { down, across }, focusedWord } = this
-      return ((down || across) && (across.word === focusedWord.across) || (down.word === focusedWord.down))
+      const { focusedWord, isBlank } = this
+      if (isBlank || !focusedWord) return false
+      const { cell: { down, across }, isFocusedWord } = this
+      return isFocusedWord('down', down.word) ||
+        isFocusedWord('across', across.word)
     },
 
     cellStyles () {
@@ -121,7 +119,7 @@ export default {
       return found && 'word' in found ? found.word : false
     },
 
-    ...mapGetters(['focusedWord', 'boardId', 'stringToHSL', 'uid'])
+    ...mapGetters(['focusedWord', 'boardId', 'stringToHSL', 'uid', 'isFocusedWord'])
   }
 }
 </script>

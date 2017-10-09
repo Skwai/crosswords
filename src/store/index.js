@@ -22,10 +22,7 @@ export default new Vuex.Store({
 
     uid: localStorage.getItem(config.UID_STORAGE_KEY) || null,
 
-    focusedWord: {
-      across: null,
-      down: null
-    }
+    focusedWord: null
   },
   strict: debug
 })

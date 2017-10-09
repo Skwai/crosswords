@@ -6,10 +6,7 @@ export default {
   },
 
   [types.REMOVE_FOCUSED_WORD] (state) {
-    state.focusedWord = {
-      down: null,
-      across: null
-    }
+    state.focusedWord = null
   },
 
   [types.SET_GAME] (state, game) {
