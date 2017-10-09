@@ -17,12 +17,16 @@ module.exports = class Generator {
   generateBoard () {
     let row = 0
     while (row < this.size) {
-      this.addRow(row)
+      for (let j = 0; j < 5; j++) {
+        this.addRow(row)
+      }
       row += 2
     }
 
-    for (let i = 0; i < this.size - 3; i++) {
-      this.addCol(i)
+    for (let j = 0; j < 20; j++) {
+      for (let i = 0; i < this.size - 3; i++) {
+        this.addCol(i)
+      }
     }
 
     const board = { words: { down: {}, across: {} } }
@@ -68,9 +72,14 @@ module.exports = class Generator {
     let start = this.randInt(0, 4)
     while (start < this.size) {
       let len = this.randLength(this.size - row)
-      let reg = this.getRegex(row, start, len, false)
-      let word = this.randWord(reg)
-      this.addColWord(row, start, word)
+
+      const above = this.grid[row - 1][start]
+      const below = this.grid[row + len][start]
+      if ((above === '.' || above === '`') && (below === '.' || below === '`')) {
+        let reg = this.getRegex(row, start, len, false)
+        let word = this.randWord(reg)
+        this.addColWord(row, start, word)
+      }
       start += this.randInt(2, 4)
     }
   }
