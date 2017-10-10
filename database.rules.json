@@ -6,9 +6,7 @@
     "games": {
       "$game": {
         "users": {
-          "$user": {
-            ".write": "$user == auth.uid"
-          }
+          ".write": "auth.uid != null"
         }
       }
     },
@@ -17,9 +15,7 @@
       "$board": {
         "$y": {
           "$x": {
-            "value": {
-              ".write": "auth.uid != null"
-            }
+          	".write": "auth.uid != null"
           }
         }
       }
