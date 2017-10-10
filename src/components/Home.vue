@@ -1,5 +1,9 @@
 <template>
   <div class="Home">
+    <Header class="Home__Header">
+      <h1>WordHerd</h1>
+      <p>The most dankest crossword app you've ever laid your peeping balls on.</p>
+    </Header>
     <Loading v-if="loading" />
     <Btn v-else @click="generate">Create a crossword</Btn>
   </div>
@@ -27,9 +31,8 @@ export default {
       try {
         const response = await fetch('/generate')
         const data = await response.json()
+        if (!data.game) throw Error('No game was created')
         this.$router.push({ name: 'game', params: { gameId: data.game } })
-      } catch (err) {
-        console.error(err)
       } finally {
         this.loading = false
       }
@@ -39,4 +42,11 @@ export default {
 </script>
 
 <style lang="stylus">
+@require "../styles/config"
+
+.Home
+  text-align: center
+
+  &__Header
+    margin-bottom: spacingBase
 </style>

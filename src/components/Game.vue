@@ -4,7 +4,6 @@
     <Users :users="game.users" />
     <Board :boardId="game.board" />
     <Clues :clues="game.clues" />
-    <!--<GamePermalink :boardId="game.board" />-->
   </div>
 </template>
 
@@ -13,7 +12,6 @@ import { mapGetters } from 'vuex'
 import Board from '@/components/Board'
 import Loading from '@/components/Loading'
 import Users from '@/components/Users'
-import GamePermalink from '@/components/GamePermalink'
 import Clues from '@/components/Clues'
 
 export default {
@@ -21,14 +19,13 @@ export default {
     Board,
     Loading,
     Users,
-    GamePermalink,
     Clues
   },
 
   data () {
     return {
       gameId: null,
-      loading: false
+      loading: true
     }
   },
 
@@ -38,12 +35,18 @@ export default {
 
   async created () {
     this.gameId = this.$route.params.gameId
-    await this.$store.dispatch('loadGame', this.gameId)
-    await this.$store.dispatch('joinGame', {
-      gameId: this.gameId,
-      userId: this.uid
-    })
-    this.loading = false
+
+    try {
+      await this.$store.dispatch('loadGame', this.gameId)
+      await this.$store.dispatch('joinGame', {
+        gameId: this.gameId,
+        userId: this.uid
+      })
+    } catch (err) {
+      this.$router.push({ name: '404' })
+    } finally {
+      this.loading = false
+    }
   }
 }
 </script>

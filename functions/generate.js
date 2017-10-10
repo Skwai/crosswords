@@ -26,7 +26,6 @@ module.exports = functions.https.onRequest((request, response) => {
     clues
   }
 
-  // TODO: get clues
   delete board.words
 
   db.ref().update({

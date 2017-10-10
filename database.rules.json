@@ -1,24 +1,29 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null",
-
-    "words": {
-      ".read": "false",
-      ".write": "false"
-    },
+    ".read": "true",
+    ".write": "false",
 
     "games": {
       "$game": {
-        ".read": "true",
-        ".write": "true"
+        "users": {
+          "$user": {
+            ".write": "$user == auth.uid || auth.token.isAdmin == true",
+            ".validate": "newData.isBoolean()"
+          }
+        }
       }
     },
 
     "boards": {
       "$board": {
-        ".read": "true",
-        ".write": "true"
+        "$y": {
+          "$x": {
+            "value": {
+              ".write": "auth.uid != null || auth.token.isAdmin == true",
+              ".validate": "newData.isString()"
+            }
+          }
+        }
       }
     }
   }
