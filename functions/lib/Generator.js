@@ -37,6 +37,7 @@ module.exports = class Generator {
       }
     }
 
+    this.across = this.across.sort((a,b) => (a.row * this.size + a.col) - (b.row * this.size + b.col))
     for (let i = 0; i < this.across.length; i++) {
       const { col, row, word } = this.across[i]
       board.words.across[`w${i}`] = word
@@ -45,6 +46,7 @@ module.exports = class Generator {
       }
     }
 
+    this.down = this.down.sort((a,b) => (a.row * this.size + a.col) - (b.row * this.size + b.col))
     for (let i = 0; i < this.down.length; i++) {
       const { col, row, word } = this.down[i]
       board.words.down[`w${i}`] = word
@@ -87,21 +89,31 @@ module.exports = class Generator {
   addRow (row) {
     let start = this.randInt(0, this.size / 3 - 3)
     let len = this.randLength(this.size - start)
-    let reg = this.getRegex(row, start, len)
-    let word = this.randWord(reg)
-    this.addRowWord(row, start, word)
+    let reg, word
 
-    start += len + this.randInt(1, this.size - 3 - len)
-    if (start + 3 <= this.size) {
-      len = this.randLength(this.size - start)
+    let left = this.grid[row][start - 1]
+    let right = this.grid[row][start + len]
+    if ((left === '.' || left === '`') && (right === '.' || right === '`')) {
       reg = this.getRegex(row, start, len)
       word = this.randWord(reg)
       this.addRowWord(row, start, word)
     }
+
+    start += len + this.randInt(1, this.size - 3 - len)
+    if (start + 3 <= this.size) {
+      len = this.randLength(this.size - start)
+      left = this.grid[row][start - 1]
+      right = this.grid[row][start + len]
+      if ((left === '.' || left === '`') && (right === '.' || right === '`')) {
+        reg = this.getRegex(row, start, len)
+        word = this.randWord(reg)
+        this.addRowWord(row, start, word)
+      }
+    }
   }
 
   addColWord (row, col, word) {
-    if (word) {
+    if (word && this.down.filter( w => w.word == word).length === 0) {
       this.down.push({row, col, word})
       for (let i = 0; i < word.length; i++) {
         this.deadzone(row + i, col - 1)
@@ -114,7 +126,7 @@ module.exports = class Generator {
   }
 
   addRowWord (row, col, word) {
-    if (word) {
+    if (word && this.across.filter( w => w.word == word).length === 0) {
       this.across.push({row, col, word})
       for (let i = 0; i < word.length; i++) {
         this.grid[row][col + i] = word[i]
