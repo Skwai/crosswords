@@ -4,14 +4,22 @@ const Generator = require('./lib/Generator')
 
 const wordData = require('./data/words.json')
 const CLUE_TYPE_CLUE = 'clue'
+const CLUE_TYPE_CRIPTIC = 'cryptic'
 
 admin.initializeApp(functions.config().firebase)
 const db = admin.database()
 
 module.exports = functions.https.onRequest((request, response) => {
-  const words = Object.keys(wordData)
   const size = parseInt(request.query.size) || 10
+  let types;
 
+  if (request.query.type) {
+    types = [request.query.type]
+  } else {
+    types = [CLUE_TYPE_CLUE, CLUE_TYPE_CRIPTIC]
+  }
+
+  const words = Object.keys(filterObject(wordData, c => Object.keys(filterObject(c, w => types.indexOf(w) !== -1)).length > 0))
   const gen = new Generator(size, words)
   const board = gen.generateBoard()
   gen.printBoard()
@@ -75,4 +83,10 @@ const getWordClue = (word, wordList, clueType) => {
   const filtered = Object.keys(clues).filter(k => clues[k] === clueType)
   const rand = Math.floor(Math.random() * filtered.length)
   return filtered[rand] || null
+}
+
+const filterObject = (obj, predicate) => {
+  return Object.keys(obj)
+    .filter( key => predicate(obj[key]) )
+    .reduce( (res, key) => (res[key] = obj[key], res), {} );
 }
