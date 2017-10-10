@@ -2,7 +2,7 @@
   <div class="Home">
     <Header class="Home__Header">
       <img class="Home__Logo" src="../assets/logo.svg">
-      <h1>Worderd</h1>
+      <h1>WordHerd</h1>
       <p>The most dankest crossword app you've ever laid your peeping balls on.</p>
     </Header>
     <Loading v-if="loading" />
