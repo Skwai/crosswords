@@ -17,13 +17,13 @@ module.exports = class Generator {
   generateBoard () {
     let row = 0
     while (row < this.size) {
-      for (let j = 0; j < 100; j++) {
+      for (let j = 0; j < 20; j++) {
         this.addRow(row)
       }
       row += 2
     }
 
-    for (let j = 0; j < 100; j++) {
+    for (let j = 0; j < 20; j++) {
       for (let i = 0; i < this.size - 3; i++) {
         this.addCol(i)
       }
