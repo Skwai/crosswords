@@ -25,8 +25,9 @@ const router = new Router({
       component: Game
     },
     {
-      name: '404',
-      path: '*',
+      name: 'notFound',
+      path: '/404',
+      alias: '*',
       component: NotFound
     }
   ]

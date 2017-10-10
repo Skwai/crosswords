@@ -43,7 +43,7 @@ export default {
         userId: this.uid
       })
     } catch (err) {
-      this.$router.push({ name: '404' })
+      this.$router.push('/404')
     } finally {
       this.loading = false
     }

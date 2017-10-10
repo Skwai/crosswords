@@ -37,8 +37,8 @@ export const loadBoard = async ({ commit }, boardId) => {
 export const loadGame = async ({ commit, state }, gameId) => {
   const ref = db.ref(`games/${gameId}`)
   const snapshot = await ref.once('value')
-  if (!snapshot || snapshot.empty) throw Error(`Game doesn't exist`)
-  ref.on('value', (newSnapshot) => commit(types.SET_GAME, newSnapshot.val()))
+  if (!snapshot || !snapshot.exists()) throw Error(`Game doesn't exist`)
+  ref.on('value', (s) => commit(types.SET_GAME, s.val()))
 }
 
 export const joinGame = async ({ commit }, { gameId, userId }) => {

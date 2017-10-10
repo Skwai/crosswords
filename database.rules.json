@@ -7,8 +7,7 @@
       "$game": {
         "users": {
           "$user": {
-            ".write": "$user == auth.uid || auth.token.isAdmin == true",
-            ".validate": "newData.isBoolean()"
+            ".write": "$user == auth.uid"
           }
         }
       }
@@ -19,8 +18,7 @@
         "$y": {
           "$x": {
             "value": {
-              ".write": "auth.uid != null || auth.token.isAdmin == true",
-              ".validate": "newData.isString()"
+              ".write": "auth.uid != null"
             }
           }
         }
