@@ -14,19 +14,19 @@ export default {
 
 <style lang="stylus">
 @require "./styles/config.styl"
-@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700")
+@import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700")
 
 html
   font-size: fontSize
 
 body
   margin: 0
-  font-family: "Roboto Slab", Helvetica, Arial, sans-serif
+  font-family: "Merriweather Sans", Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   color: fontColor
   font-weight: 500
-  background: #dadbdc linear-gradient(135deg, #fff, #dadbdc)
+  background: #eaebec linear-gradient(135deg, #fff, #eaebec)
 
 textarea,
 select,

@@ -1,7 +1,8 @@
 <template>
   <div class="Home">
     <Header class="Home__Header">
-      <h1>WordHerd</h1>
+      <img class="Home__Logo" src="../assets/logo.svg">
+      <h1>Worderd</h1>
       <p>The most dankest crossword app you've ever laid your peeping balls on.</p>
     </Header>
     <Loading v-if="loading" />
@@ -49,4 +50,9 @@ export default {
 
   &__Header
     margin-bottom: spacingBase
+
+  // https://commons.wikimedia.org/wiki/File:Larry-the-cow-full.svg
+  &__Logo
+    width: 10rem
+    margin-top: spacingBase
 </style>
