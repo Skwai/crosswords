@@ -37,6 +37,7 @@ module.exports = class Generator {
       }
     }
 
+
     const allWords = this.across.concat(this.down)
     const startingCells = {}
     for (let i = 0; i < allWords.length; i++) {
@@ -51,17 +52,19 @@ module.exports = class Generator {
 
     for (let i = 0; i < this.across.length; i++) {
       const { col, row, word } = this.across[i]
-      board.words.across[`w${startingCells[row * this.size + col]}`] = word
+      const wordNum = startingCells[row * this.size + col]
+      board.words.across[`w${wordNum}`] = word
       for (let c = 0; c < word.length; c++) {
-        Object.assign(board[`y${row + 1}`][`x${col + 1 + c}`], { value: '', across: { word: i + 1, pos: c + 1 } })
+        Object.assign(board[`y${row + 1}`][`x${col + 1 + c}`], { value: '', across: { word: wordNum, pos: c + 1 } })
       }
     }
 
     for (let i = 0; i < this.down.length; i++) {
       const { col, row, word } = this.down[i]
-      board.words.down[`w${startingCells[row * this.size + col]}`] = word
+      const wordNum = startingCells[row * this.size + col]
+      board.words.down[`w${wordNum}`] = word
       for (let c = 0; c < word.length; c++) {
-        Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word: i + 1, pos: c + 1 } })
+        Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word: wordNum, pos: c + 1 } })
       }
     }
 
@@ -76,6 +79,8 @@ module.exports = class Generator {
         }
       }
     }
+
+
 
     return board
   }
