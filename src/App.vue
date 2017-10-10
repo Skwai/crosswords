@@ -1,9 +1,7 @@
 <template>
-  <div id="app">
-    <main>
-      <router-view></router-view>
-    </main>
-  </div>
+  <main id="app">
+    <router-view></router-view>
+  </main>
 </template>
 
 <script>
@@ -26,7 +24,7 @@ body
   font-family: "Roboto Slab", Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: #222
+  color: fontColor
   font-weight: 500
   background: #dadbdc linear-gradient(135deg, #fff, #dadbdc)
 
@@ -44,7 +42,6 @@ input
 #app
   min-height: 100vh
   width: 100%
-  padding-top: 5vh
   display: flex
   justify-content: center
 </style>

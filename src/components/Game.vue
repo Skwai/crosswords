@@ -1,9 +1,14 @@
 <template>
   <Loading v-if="loading" />
   <div class="Game" v-else-if="game">
-    <Users :users="game.users" />
-    <Board :boardId="game.board" />
-    <Clues :clues="game.clues" />
+    <div class="Game__Board">
+      <Users :users="game.users" />
+      <Board :boardId="game.board" />
+    </div>
+    <Clues
+      :clues="game.clues"
+      :cryptic="game.cryptic"
+    />
   </div>
 </template>
 
@@ -52,5 +57,18 @@ export default {
 </script>
 
 <style lang="stylus">
+@require "../styles/config.styl"
 
+.Game
+  width: 100%
+  display: flex
+  flex-direction: column
+
+  @media (min-width: 1024px)
+    flex-direction: row
+
+  &__Board
+    flex: 1
+    padding: spacingBase
+    text-align: center
 </style>

@@ -96,11 +96,15 @@ export default {
   animation: jiggle 0.82s cubic-bezier(.36,.07,.19,.97) both
   backface-visibility: hidden
   perspective: 1000px
-  max-width: 100%
-  margin: 0 auto
+  flex-wrap: wrap
+  width: auto
+  display: inline-flex
+  flex-direction: column
+  margin: 0 auto $spacingBase
 
   &__Row
     display: flex
+    flex: 0 1
 
     + .Board__Row
       margin-top: 2px

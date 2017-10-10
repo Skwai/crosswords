@@ -34,7 +34,7 @@ export default {
 
 .Users
   display: flex
-  margin-bottom: spacingBase
+  margin: 0 0 spacingBase
   width: 100%
   justify-content: center
 
@@ -42,14 +42,14 @@ export default {
     margin-left: 0.25rem
 
   &__User
-    width: 2.25rem
-    height: 2.25rem
-    border-radius: 50%
+    width: 3rem
+    height: 3rem
+    border-radius: borderRadiusSmall
     display: inline-flex
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,.2)
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.1)
     position: relative
     color: #fff
-    font-size: 0.75rem
+    font-size: 0.8125rem
     align-items: center
     justify-content: center
     font-weight: 600

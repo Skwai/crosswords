@@ -10,6 +10,7 @@
     :data-y="y"
   >
     <div
+      class="BoardCell__Wrap"
       :style="cellStyles"
     >
       <span class="BoardCell__User" :style="{ backgroundColor: cellUserColor }"></span>
@@ -125,10 +126,12 @@ export default {
 
 <style lang="stylus">
 .BoardCell
-  cellSize = 3.5rem
+  cellSize = 3rem
   position: relative
-  width: cellSize
-  height: cellSize
+  min-width: cellSize
+  min-height: cellSize
+  max-width: cellSize
+  max-height: cellSize
   display: flex
   background: #fff
   flex: 1
@@ -139,7 +142,8 @@ export default {
   &__Input
     width: 100%
     height: 100%
-    display: block
+    top: 0
+    left: 0
     border: 0
     background: transparent
     text-align: center

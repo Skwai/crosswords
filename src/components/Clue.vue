@@ -38,7 +38,7 @@ export default {
 .Clue
   font-size: 0.875rem
   display: flex
-  padding: spacingSmall
+  padding: (spacingSmall / 2) spacingSmall
   margin: 0 (-1 * spacingSmall)
 
   &__Num
