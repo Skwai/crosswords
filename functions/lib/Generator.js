@@ -17,13 +17,13 @@ module.exports = class Generator {
   generateBoard () {
     let row = 0
     while (row < this.size) {
-      for (let j = 0; j < 5; j++) {
+      for (let j = 0; j < 100; j++) {
         this.addRow(row)
       }
       row += 2
     }
 
-    for (let j = 0; j < 20; j++) {
+    for (let j = 0; j < 100; j++) {
       for (let i = 0; i < this.size - 3; i++) {
         this.addCol(i)
       }
@@ -37,7 +37,6 @@ module.exports = class Generator {
       }
     }
 
-
     const allWords = this.across.concat(this.down)
     const startingCells = {}
     for (let i = 0; i < allWords.length; i++) {
@@ -45,7 +44,7 @@ module.exports = class Generator {
       startingCells[w.row * this.size + w.col] = true
     }
 
-    let wordNum = 1;
+    let wordNum = 1
     for (let k in startingCells) {
       startingCells[k] = wordNum++
     }
@@ -79,8 +78,6 @@ module.exports = class Generator {
         }
       }
     }
-
-
 
     return board
   }
@@ -128,7 +125,7 @@ module.exports = class Generator {
   }
 
   addColWord (row, col, word) {
-    if (word && this.down.filter( w => w.word == word).length === 0) {
+    if (word && this.down.filter(w => w.word === word).length === 0) {
       this.down.push({row, col, word})
       for (let i = 0; i < word.length; i++) {
         this.deadzone(row + i, col - 1)
@@ -141,7 +138,7 @@ module.exports = class Generator {
   }
 
   addRowWord (row, col, word) {
-    if (word && this.across.filter( w => w.word == word).length === 0) {
+    if (word && this.across.filter(w => w.word === word).length === 0) {
       this.across.push({row, col, word})
       for (let i = 0; i < word.length; i++) {
         this.grid[row][col + i] = word[i]
