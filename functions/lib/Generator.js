@@ -37,19 +37,29 @@ module.exports = class Generator {
       }
     }
 
-    this.across = this.across.sort((a,b) => (a.row * this.size + a.col) - (b.row * this.size + b.col))
+    const allWords = this.across.concat(this.down)
+    const startingCells = {}
+    for (let i = 0; i < allWords.length; i++) {
+      const w = allWords[i]
+      startingCells[w.row * this.size + w.col] = true
+    }
+
+    let wordNum = 1;
+    for (let k in startingCells) {
+      startingCells[k] = wordNum++
+    }
+
     for (let i = 0; i < this.across.length; i++) {
       const { col, row, word } = this.across[i]
-      board.words.across[`w${i}`] = word
+      board.words.across[`w${startingCells[row * this.size + col]}`] = word
       for (let c = 0; c < word.length; c++) {
         Object.assign(board[`y${row + 1}`][`x${col + 1 + c}`], { value: '', across: { word: i + 1, pos: c + 1 } })
       }
     }
 
-    this.down = this.down.sort((a,b) => (a.row * this.size + a.col) - (b.row * this.size + b.col))
     for (let i = 0; i < this.down.length; i++) {
       const { col, row, word } = this.down[i]
-      board.words.down[`w${i}`] = word
+      board.words.down[`w${startingCells[row * this.size + col]}`] = word
       for (let c = 0; c < word.length; c++) {
         Object.assign(board[`y${row + 1 + c}`][`x${col + 1}`], { value: '', down: { word: i + 1, pos: c + 1 } })
       }
