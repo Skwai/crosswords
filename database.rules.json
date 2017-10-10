@@ -6,7 +6,6 @@
     "games": {
       "$game": {
         "users": {
-          ".write": "auth.uid != null"
         }
       }
     },
@@ -15,7 +14,6 @@
       "$board": {
         "$y": {
           "$x": {
-          	".write": "auth.uid != null"
           }
         }
       }
