@@ -77,5 +77,5 @@ const getWordClue = (word, wordList, clueType) => {
   if (!Object.keys(clues).length) return null
   const filtered = Object.keys(clues).filter(k => clues[k] === clueType)
   const rand = Math.floor(Math.random() * filtered.length)
-  return filtered[rand]
+  return filtered[rand] || null
 }
