@@ -21,13 +21,15 @@ module.exports = functions.https.onRequest((request, response) => {
   gen.printBoard()
 
   const id = db.ref('games').push().key
-  const clues = getWordsClues(board.words, wordData, types)
 
   const game = {
     board: id,
     created: new Date(),
-    words: board.words,
-    clues
+    words: board.words
+  }
+
+  for (let type of types) {
+    game[type === 'clue' ? 'clues' : type] = getWordsClues(board.words, wordData, type)
   }
 
   if (debug) {
@@ -52,23 +54,23 @@ module.exports = functions.https.onRequest((request, response) => {
  * @param {Object.<Object>} across
  * @param {Object.<Object>} down
  * @param {Object} wordList
- * @param {Array} clueTypes
+ * @param {String} clueType
  */
-const getWordsClues = ({ down, across }, wordList, clueTypes = [CLUE_TYPE_CLUE]) => {
+const getWordsClues = ({ down, across }, wordList, clueType = CLUE_TYPE_CLUE) => {
   return {
-    down: getDirectionClues(down, wordList, clueTypes),
-    across: getDirectionClues(across, wordList, clueTypes)
+    down: getDirectionClues(down, wordList, clueType),
+    across: getDirectionClues(across, wordList, clueType)
   }
 }
 
 /**
  * @param {Object} words
  * @param {Object} wordList
- * @param {Array} clueTypes
+ * @param {String} clueType
  */
-const getDirectionClues = (words, wordList, clueTypes) => {
+const getDirectionClues = (words, wordList, clueType) => {
   return Object.keys(words).reduce((obj, k) => {
-    const clue = getWordClue(words[k], wordList, clueTypes)
+    const clue = getWordClue(words[k], wordList, clueType)
     return Object.assign(obj, { [k]: clue })
   }, {})
 }
@@ -76,24 +78,27 @@ const getDirectionClues = (words, wordList, clueTypes) => {
 /**
  * @param {String} word
  * @param {Object} wordList
- * @param {Array} clueTypes
+ * @param {String} clueType
  */
-const getWordClue = (word, wordList, clueTypes) => {
+const getWordClue = (word, wordList, clueType) => {
   const clues = wordList[String(word).toUpperCase()]
   if (!Object.keys(clues).length) return null
-  const filtered = Object.keys(clues).filter(k => clueTypes.indexOf(clues[k]) !== -1)
+  const filtered = Object.keys(clues).filter(k => clueType === clues[k])
   const rand = Math.floor(Math.random() * filtered.length)
   return filtered[rand] || null
 }
 
 /**
  * @param {Object} wordList
- * @param {Arrar} clueTypes
+ * @param {Attay} clueTypes
  */
-const filterWords = (wordList, types) => {
+const filterWords = (wordList, clueTypes) => {
   return filterObject(wordList,
-      c => Object.keys(filterObject(c, w => types.indexOf(w) !== -1)
-    ).length > 0)
+      c => (
+        Object.keys(filterObject(c, w => clueTypes[0] === w)).length > 0 &&
+        !clueTypes[1] || Object.keys(filterObject(c, w => clueTypes[1] === w)).length > 0
+        )
+      )
 }
 
 /**
