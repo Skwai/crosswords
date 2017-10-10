@@ -6,7 +6,7 @@
       <Board :boardId="game.board" />
     </div>
     <Clues
-      :clues="game.clues"
+      :clue="game.clue"
       :cryptic="game.cryptic"
     />
   </div>

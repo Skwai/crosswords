@@ -1,6 +1,6 @@
 <template>
   <div class="Clues">
-    <button v-if="hasCrypticClues" @click="toggleClueType" class="Clues__Toggle">
+    <button v-if="hasClueToggle" @click="toggleClueType" class="Clues__Toggle">
       <span class="Clues__ToggleOption" :class="{ '-selected': clueType === 'clue' }">Clues</span>
       <span class="Clues__ToggleOption" :class="{ '-selected': clueType === 'cryptic' }">Cryptic</span>
     </button>
@@ -22,7 +22,7 @@
 import Clue from '@/components/Clue'
 
 export default {
-  props: ['clues', 'cryptic'],
+  props: ['clue', 'cryptic'],
 
   components: {
     Clue
@@ -30,8 +30,12 @@ export default {
 
   data () {
     return {
-      clueType: 'clue'
+      clueType: null
     }
+  },
+
+  created () {
+    this.clueType = this.clue ? 'clue' : 'cryptic'
   },
 
   methods: {
@@ -41,18 +45,18 @@ export default {
   },
 
   computed: {
-    hasCrypticClues () {
-      return true // return Object.keys(this.cryptic || {}).length
+    hasClueToggle () {
+      return this.cryptic && this.clue
     },
     across () {
-      const { clues } = this
+      const clues = this[this.clueType]
       return Object.keys(clues.across).reduce((obj, k) => {
         const num = k.replace(/\D/g, '')
         return Object.assign(obj, { [num]: clues.across[k] })
       }, {})
     },
     down () {
-      const { clues } = this
+      const clues = this[this.clueType]
       return Object.keys(clues.down).reduce((obj, k) => {
         const num = k.replace(/\D/g, '')
         return Object.assign(obj, { [num]: clues.down[k] })

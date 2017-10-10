@@ -29,7 +29,7 @@ module.exports = functions.https.onRequest((request, response) => {
   }
 
   for (let type of types) {
-    game[type === 'clue' ? 'clues' : type] = getWordsClues(board.words, wordData, type)
+    game[type] = getWordsClues(board.words, wordData, type)
   }
 
   if (debug) {
