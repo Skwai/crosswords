@@ -2,7 +2,7 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const Generator = require('./lib/Generator')
 
-const wordData = require('../data/words.json')
+const wordData = require('./data/words.json')
 const CLUE_TYPE_CLUE = 'clue'
 
 admin.initializeApp(functions.config().firebase)
