@@ -10,7 +10,7 @@ admin.initializeApp(functions.config().firebase)
 const db = admin.database()
 
 module.exports = functions.https.onRequest((request, response) => {
-  const size = parseInt(request.query.size) || 10
+  const size = parseInt(request.query.size) || 13
   const types = request.query.type ? [request.query.type] : [CLUE_TYPE_CLUE, CLUE_TYPE_CRIPTIC]
   const debug = request.query.debug
 
