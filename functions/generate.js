@@ -96,7 +96,7 @@ const filterWords = (wordList, clueTypes) => {
   return filterObject(wordList,
       c => (
         Object.keys(filterObject(c, w => clueTypes[0] === w)).length > 0 &&
-        !clueTypes[1] || Object.keys(filterObject(c, w => clueTypes[1] === w)).length > 0
+        (!clueTypes[1] || Object.keys(filterObject(c, w => clueTypes[1] === w)).length > 0)
         )
       )
 }
