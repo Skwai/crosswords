@@ -20,7 +20,7 @@ module.exports = functions.https.onRequest((request, response) => {
   const board = gen.generateBoard()
   gen.printBoard()
 
-  const id = db.ref('games').push().key
+  const id = debug || db.ref('games').push().key
 
   const game = {
     board: id,
@@ -35,18 +35,20 @@ module.exports = functions.https.onRequest((request, response) => {
   if (debug) {
     console.log(game)
     console.log(board)
-  }
-  delete board.words
+    response.status(200).send({ game, board })
+  } else {
+    delete board.words
 
-  db.ref().update({
-    [`games/${id}`]: game,
-    [`boards/${id}`]: board
-  }).then(() => {
-    response.status(200).send({ game: id })
-  }).catch((err) => {
-    console.error(err)
-    response.send(500)
-  })
+    db.ref().update({
+      [`games/${id}`]: game,
+      [`boards/${id}`]: board
+    }).then(() => {
+      response.status(200).send({ game: id })
+    }).catch((err) => {
+      console.error(err)
+      response.send(500)
+    })
+  }
 })
 
 /**
