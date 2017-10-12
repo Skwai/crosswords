@@ -84,7 +84,6 @@ export default {
     overflow: hidden
     cursor: pointer
     font-size: 0.875rem
-    margin: 0 spacingSmall
     margin-bottom: spacingBase
 
     &:focus
@@ -104,8 +103,11 @@ export default {
       display: flex
 
   &__Col
-    padding: spacingSmall
-
     @media (min-width: 640px)
       flex: 0 0 50%
+
+      &:first-child
+        margin-right: (spacingBase / 2)
+      &:last-child
+        margin-left: (spacingBase / 2)
 </style>

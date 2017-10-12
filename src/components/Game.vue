@@ -75,7 +75,7 @@ export default {
 
   &__Board
     flex: 1
-    padding: spacingBase
+    padding: spacingLarge
     text-align: center
     max-width: 100vw
     overflow-y: scroll
@@ -83,7 +83,7 @@ export default {
   &__Details
     background: fontColor
     color: #fff
-    padding: spacingBase
+    padding: spacingLarge
     justify-content: center
     width: 100%
     max-width: 100vw
