@@ -1,9 +1,10 @@
 <template>
   <div
     class="Clue"
-    :style="focusedStyle"
+    :class="{ '-focused': isFocused }"
+    @click="click"
   >
-    <strong class="Clue__Num">{{num}}</strong>
+    <strong class="Clue__Num">{{num}}.</strong>
     <span class="Clue__Content"><slot /></span>
   </div>
 </template>
@@ -14,14 +15,14 @@ import { mapGetters } from 'vuex'
 export default {
   props: ['num', 'dir'],
 
-  computed: {
-    focusedStyle () {
-      if (!this.isFocused) return null
-      return {
-        backgroundColor: this.stringToHSL(this.uid, 0.2)
-      }
-    },
+  methods: {
+    click () {
+      const { dir, num } = this
+      this.$store.dispatch('focusWord', `${dir}.${num}`)
+    }
+  },
 
+  computed: {
     isFocused () {
       const { isFocusedWord, num, dir } = this
       return isFocusedWord(dir, num)
@@ -38,8 +39,12 @@ export default {
 .Clue
   font-size: 0.875rem
   display: flex
-  padding: (spacingSmall / 2) spacingSmall
+  padding: spacingSmall spacingSmall
   margin: 0 (-1 * spacingSmall)
+  transition: transitionBase
+
+  &.-focused
+    background: rgba(255,255,255,.2)
 
   &__Num
     margin-right: spacingSmall

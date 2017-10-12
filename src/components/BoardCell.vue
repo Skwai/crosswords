@@ -25,6 +25,7 @@
         @mousedown="mousedown"
         @blur="blur"
         :value="cell.value"
+        :id="cellInputId"
       >
     </div>
   </div>
@@ -73,6 +74,12 @@ export default {
   },
 
   computed: {
+    cellInputId () {
+      if (this.isBlank) return null
+      const { x, y } = this
+      return `${x}:${y}`
+    },
+
     cellUserColor () {
       const { cell } = this
       return cell.user ? this.stringToHSL(cell.user) : null

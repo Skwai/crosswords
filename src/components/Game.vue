@@ -1,14 +1,20 @@
 <template>
   <Loading v-if="loading" />
   <div class="Game" v-else-if="game">
-    <div class="Game__Board">
+    <!--
+    <div class="Game__Users">
       <Users :users="game.users" />
+    </div>
+    -->
+    <div class="Game__Board">
       <Board :boardId="game.board" />
     </div>
-    <Clues
-      :clue="game.clue"
-      :cryptic="game.cryptic"
-    />
+    <div class="Game__Details">
+      <Clues
+        :clue="game.clue"
+        :cryptic="game.cryptic"
+      />
+    </div>
   </div>
 </template>
 
@@ -71,4 +77,18 @@ export default {
     flex: 1
     padding: spacingBase
     text-align: center
+    max-width: 100vw
+    overflow-y: scroll
+
+  &__Details
+    background: fontColor
+    color: #fff
+    padding: spacingBase
+    justify-content: center
+    width: 100%
+    max-width: 100vw
+
+    @media (min-width: 1024px)
+      flex: 1 0
+      min-height: 100vh
 </style>

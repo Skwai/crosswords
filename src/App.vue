@@ -17,7 +17,16 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700")
 
 html
-  font-size: fontSize
+  font-size: (fontSize - 3px)
+
+  @media (min-width: 640px)
+    font-size: (fontSize - 2px)
+
+  @media (min-width: 768px)
+    font-size: (fontSize - 1px)
+
+  @media (min-width: 1024px)
+    font-size: fontSize
 
 body
   margin: 0

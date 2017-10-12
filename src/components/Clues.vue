@@ -70,12 +70,8 @@ export default {
 @require "../styles/config"
 
 .Clues
-  background: fontColor
-  color: #fff
-  padding: spacingBase
-  justify-content: center
-  flex: 1 0
-  height: 100vh
+  h4
+    margin: 0 0 1rem
 
   &__Toggle
     border-radius: borderRadius
@@ -89,6 +85,7 @@ export default {
     cursor: pointer
     font-size: 0.875rem
     margin: 0 spacingSmall
+    margin-bottom: spacingBase
 
     &:focus
       outline: 0
@@ -103,9 +100,12 @@ export default {
         color: fontColor
 
   &__Row
-    display: flex
+    @media (min-width: 640px)
+      display: flex
 
   &__Col
-    flex: 0 0 20rem
     padding: spacingSmall
+
+    @media (min-width: 640px)
+      flex: 0 0 50%
 </style>
