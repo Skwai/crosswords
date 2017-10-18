@@ -1,7 +1,7 @@
 <template>
   <div class="Home">
     <Header class="Home__Header">
-      <img class="Home__Logo" src="../assets/logo.svg">
+      <img class="Home__Logo" src="../assets/emblem.svg">
       <h1>WordHerd</h1>
       <p>The most dankest crossword app you've ever laid your peeping balls on.</p>
     </Header>
@@ -53,6 +53,6 @@ export default {
 
   // https://commons.wikimedia.org/wiki/File:Larry-the-cow-full.svg
   &__Logo
-    width: 10rem
+    width: 6rem
     margin-top: spacingBase
 </style>

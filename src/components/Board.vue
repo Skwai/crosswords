@@ -66,7 +66,6 @@ export default {
   width: auto
   display: inline-flex
   flex-direction: column
-  margin: 0 auto $spacingBase
 
   &__Row
     display: flex

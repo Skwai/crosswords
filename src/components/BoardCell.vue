@@ -133,7 +133,7 @@ export default {
 
 <style lang="stylus">
 .BoardCell
-  cellSize = 3rem
+  cellSize = 2.5rem
   position: relative
   min-width: cellSize
   min-height: cellSize
@@ -142,6 +142,13 @@ export default {
   display: flex
   background: #fff
   flex: 1
+
+  @media (min-width: 768px)
+    cellSize = 3rem
+    min-width: cellSize
+    min-height: cellSize
+    max-width: cellSize
+    max-height: cellSize
 
   & + .BoardCell
     margin-left: 2px

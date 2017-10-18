@@ -75,18 +75,21 @@ export default {
 
   &__Board
     flex: 1
-    padding: spacingLarge
+    padding: spacingBase
     text-align: center
     max-width: 100vw
-    overflow-y: scroll
+    box-shadow: rgba(0,0,0,.15) 0 0 1rem
+    overflow-x: scroll
+
+    @media (min-width: 1024px)
+      overflow: visible
 
   &__Details
-    background: fontColor
-    color: #fff
-    padding: spacingLarge
+    padding: spacingBase
     justify-content: center
     width: 100%
     max-width: 100vw
+    background: rgba(0,0,0,.05)
 
     @media (min-width: 1024px)
       flex: 1 0

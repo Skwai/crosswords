@@ -2,6 +2,7 @@
   <div
     class="Clue"
     :class="{ '-focused': isFocused }"
+    :style="clueStyles"
     @click="click"
   >
     <strong class="Clue__Num">{{num}}.</strong>
@@ -28,6 +29,12 @@ export default {
       return isFocusedWord(dir, num)
     },
 
+    clueStyles () {
+      if (!this.isFocused) return null
+      const backgroundColor = this.stringToHSL(this.uid, 0.2)
+      return { backgroundColor }
+    },
+
     ...mapGetters(['uid', 'isFocusedWord', 'stringToHSL'])
   }
 }
@@ -39,8 +46,7 @@ export default {
 .Clue
   font-size: 0.875rem
   display: flex
-  padding: spacingSmall spacingSmall
-  margin: 0 (-1 * spacingSmall)
+  padding: 0.75rem spacingSmall
   transition: transitionBase
 
   &.-focused

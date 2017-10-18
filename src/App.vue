@@ -14,23 +14,20 @@ export default {
 
 <style lang="stylus">
 @require "./styles/config.styl"
-@import url("https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700")
+@import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700")
 
 html
-  font-size: (fontSize - 3px)
-
-  @media (min-width: 640px)
-    font-size: (fontSize - 2px)
+  font-size: (fontSize - 2px)
 
   @media (min-width: 768px)
     font-size: (fontSize - 1px)
 
-  @media (min-width: 1024px)
+  @media (min-width: 1280px)
     font-size: fontSize
 
 body
   margin: 0
-  font-family: "Merriweather Sans", Helvetica, Arial, sans-serif
+  font-family: "Roboto Slab", Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   color: fontColor

@@ -6,14 +6,13 @@
     </button>
     <div class="Clues__Row">
       <div class="Clues__Col">
-        <h4>Down</h4>
-        <Clue v-for="(clue, key) in down" :key="key" :num="key" dir="down">{{clue}}</Clue>
-      </div>
-      <div class="Clues__Col">
         <h4>Across</h4>
         <Clue v-for="(clue, key) in across" :key="key" :num="key" dir="across">{{clue}}</Clue>
       </div>
-
+      <div class="Clues__Col">
+        <h4>Down</h4>
+        <Clue v-for="(clue, key) in down" :key="key" :num="key" dir="down">{{clue}}</Clue>
+      </div>
     </div>
   </div>
 </template>
@@ -70,6 +69,9 @@ export default {
 @require "../styles/config"
 
 .Clues
+  max-width: 34rem
+  margin: 0 auto
+
   h4
     margin: 0 0 1rem
 
@@ -78,9 +80,8 @@ export default {
     display: inline-flex
     border: 0
     padding: 0
-    box-shadow: inset #fff 0 0 0 2px, #fff 0 2px 0
+    box-shadow: inset currentColor 0 0 0 2px, currentColor 0 2px 0
     background: transparent
-    color: #fff
     overflow: hidden
     cursor: pointer
     font-size: 0.875rem
@@ -95,19 +96,12 @@ export default {
       &.-selected,
       &:hover,
       &:focus
-        background: #fff
-        color: fontColor
+        background: #000
+        color: #fff
 
   &__Row
-    @media (min-width: 640px)
-      display: flex
+    display: flex
 
   &__Col
-    @media (min-width: 640px)
-      flex: 0 0 50%
-
-      &:first-child
-        margin-right: (spacingBase / 2)
-      &:last-child
-        margin-left: (spacingBase / 2)
+    flex: 0 0 50%
 </style>
