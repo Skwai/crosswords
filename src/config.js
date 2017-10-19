@@ -7,6 +7,5 @@ export default {
     storageBucket: 'api-project-618944625515.appspot.com',
     messagingSenderId: '618944625515'
   },
-
   UID_STORAGE_KEY: 'crossword:uid'
 }

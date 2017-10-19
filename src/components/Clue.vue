@@ -31,8 +31,8 @@ export default {
 
     clueStyles () {
       if (!this.isFocused) return null
-      const backgroundColor = this.stringToHSL(this.uid, 0.2)
-      return { backgroundColor }
+      const color = this.stringToHSL(this.uid, 0.2)
+      return { background: color }
     },
 
     ...mapGetters(['uid', 'isFocusedWord', 'stringToHSL'])
@@ -46,11 +46,8 @@ export default {
 .Clue
   font-size: 0.875rem
   display: flex
-  padding: 0.75rem spacingSmall
+  padding: 0.75rem 0.75rem
   transition: transitionBase
-
-  &.-focused
-    background: rgba(255,255,255,.2)
 
   &__Num
     margin-right: spacingSmall

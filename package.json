@@ -17,6 +17,7 @@
     "deploy": "yarn build && firebase deploy"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "firebase": "^4.5.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
