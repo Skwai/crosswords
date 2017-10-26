@@ -23,6 +23,7 @@ class GeneratorTemplate {
       .then(template => {
         const orientation = GeneratorTemplate.getOrientation()
         const orientated = GeneratorTemplate.orientateTemplate(orientation, template)
+        console.log('\n' + orientated)
         const matrix = GeneratorTemplate.templateToMatrix(orientated)
         const filled = this.fill(matrix)
         console.log(filled)
@@ -45,10 +46,6 @@ class GeneratorTemplate {
     this.slots.forEach(slot => {
       slot.word = null
     })
-  }
-
-  static isStart (matrix, x, y) {
-    return GeneratorTemplate.isDownStart() || GeneratorTemplate.isAcrossStart()
   }
 
   static isDownStart (matrix, x, y) {
@@ -95,7 +92,7 @@ class GeneratorTemplate {
       })
     })
     return slots.sort((a, b) => b.length - a.length)
-      .filter(({ length }) => length > 0)
+      // .filter(({ length }) => length > 0)
   }
 
   static findWordEnd (matrix, x, y, direction) {
@@ -202,7 +199,6 @@ class WordSlot {
         const char = direction === ACROSS ? matrix[y][x + index] : matrix[y + index][x]
         return char !== PLACEHOLDER ? char : null
       })
-    console.log(chars)
     return chars
   }
 
