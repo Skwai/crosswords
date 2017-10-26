@@ -6,8 +6,11 @@ const SOUTH = 'SOUTH'
 const WEST = 'WEST'
 
 const EMPTY = '-'
+const PLACEHOLDER = 'x'
 const DOWN = 'DOWN'
 const ACROSS = 'ACROSS'
+
+const MAX_ATTEMPTS = 100
 
 class GeneratorTemplate {
   constructor (size, words) {
@@ -18,16 +21,39 @@ class GeneratorTemplate {
   create () {
     const orientation = GeneratorTemplate.getOrientation()
     return GeneratorTemplate.getTemplate(this.size, this.orientation)
-      .then((template) => {
+      .then(template => {
         this.template = GeneratorTemplate.orientateTemplate(orientation, template)
-        this.fill(template)
+        this.matrix = GeneratorTemplate.templateToMatrix(this.template)
+        this.slots = GeneratorTemplate.getWordSlots(this.matrix)
+
+        try {
+          this.fill()
+        } catch (err) {
+          console.error(err)
+        }
       })
   }
 
-  fill (template) {
-    const matrix = GeneratorTemplate.templateToMatrix(template)
-    const slots = GeneratorTemplate.getSlots(matrix)
-    console.log(slots)
+  fill () {
+    this.fillAttempt()
+  }
+
+  fillAttempt () {
+    const matrix = this.matrix.slice(0)
+    const words = this.words.slice(0)
+    const slots = this.slots.slice(0).sort((a, b) => b.length - a.length)
+
+    slots.forEach(slot => {
+      const chars = slot.charsFromMatrix(matrix)
+      const word = GeneratorTemplate.findWord(words, slot.length, chars)
+      console.log(word)
+      slot.word = word
+      slot.updateMatrix(matrix)
+    })
+
+    console.log('\n' + GeneratorTemplate.matrixToTemplate(matrix))
+
+    return true
   }
 
   static isStart (matrix, x, y) {
@@ -58,7 +84,7 @@ class GeneratorTemplate {
       ))
   }
 
-  static getSlots (matrix) {
+  static getWordSlots (matrix) {
     const slots = []
     matrix.forEach((row, rowIndex) => {
       row.forEach((col, colIndex) => {
@@ -67,20 +93,20 @@ class GeneratorTemplate {
         const start = [x, y]
 
         if (GeneratorTemplate.isAcrossStart(matrix, x, y)) {
-          const end = GeneratorTemplate.findEnd(matrix, x, y, ACROSS)
-          slots.push(new Word(start, end, ACROSS))
+          const end = GeneratorTemplate.findWordEnd(matrix, x, y, ACROSS)
+          slots.push(new WordSlot(start, end, ACROSS))
         }
 
         if (GeneratorTemplate.isDownStart(matrix, x, y)) {
-          const end = GeneratorTemplate.findEnd(matrix, x, y, DOWN)
-          slots.push(new Word(start, end, DOWN))
+          const end = GeneratorTemplate.findWordEnd(matrix, x, y, DOWN)
+          slots.push(new WordSlot(start, end, DOWN))
         }
       })
     })
     return slots
   }
 
-  static findEnd (matrix, x, y, direction) {
+  static findWordEnd (matrix, x, y, direction) {
     if (direction === DOWN) {
       while (
         matrix[y] &&
@@ -148,19 +174,53 @@ class GeneratorTemplate {
     return matrix.map(row => row.join(' ')).join('\n')
   }
 
-  static findWord (words, length) {
+  static findWord (words = [], length, chars = []) {
     const filtered = words.filter(word => word.length === length)
-    const rand = Math.floor(Math.random() * filtered)
+      .filter((word) => {
+        return chars.every((char, index) => {
+          return word.charAt(index) === char
+        })
+      })
+
+    if (!filtered.length) {
+      console.error('No word matches', chars)
+    }
+
+    const rand = Math.floor(Math.random() * filtered.length)
     return filtered[rand]
   }
 }
 
-class Word {
+class WordSlot {
   constructor (start, end, direction) {
     this.start = start
     this.end = end
     this.direction = direction
     this.length = this.getLength()
+    this.word = null
+  }
+
+  charsFromMatrix (matrix) {
+    const [x, y] = this.start
+    return [...Array(this.length)]
+      .map((_, index) => {
+        const char = this.direction === ACROSS ? matrix[y][x + index] : matrix[y + index][x]
+        return char !== PLACEHOLDER ? char : null
+      }).filter(char => char)
+  }
+
+  updateMatrix (matrix) {
+    if (!this.word) return
+
+    const [x, y] = this.start
+
+    this.word.split('').forEach((char, index) => {
+      if (this.direction === ACROSS) {
+        matrix[y][x + index] = char
+      } else {
+        matrix[y + index][x] = char
+      }
+    })
   }
 
   getLength () {
