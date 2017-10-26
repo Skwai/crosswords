@@ -35,25 +35,43 @@ class GeneratorTemplate {
   }
 
   fill () {
-    this.fillAttempt()
+    let attempts = 0
+    while (attempts <= MAX_ATTEMPTS) {
+      console.log(`Attempt: ${attempts}`)
+      attempts++
+      try {
+        this.fillAttempt()
+      } catch (err) {}
+    }
   }
 
   fillAttempt () {
-    const matrix = this.matrix.slice(0)
-    const words = this.words.slice(0)
-    const slots = this.slots.slice(0).sort((a, b) => b.length - a.length)
+    // clone matrix to use
+    const matrix = JSON.parse(JSON.stringify(this.matrix))
+    const words = [...this.words]
+    const slots = this.slots.sort((a, b) => b.length - a.length)
 
-    slots.forEach(slot => {
-      const chars = slot.charsFromMatrix(matrix)
-      const word = GeneratorTemplate.findWord(words, slot.length, chars)
-      console.log(word)
-      slot.word = word
-      slot.updateMatrix(matrix)
+    try {
+      slots.forEach(slot => {
+        const chars = slot.charsFromMatrix(matrix)
+        const word = GeneratorTemplate.findWord(words, slot.length, chars)
+        delete words[words.indexOf(word)]
+        slot.word = word
+        slot.updateMatrix(matrix)
+        console.log('\n' + GeneratorTemplate.matrixToTemplate(matrix))
+      })
+    } catch (err) {
+      console.error(err.message)
+      console.log('\n' + GeneratorTemplate.matrixToTemplate(matrix))
+      this.resetSlots()
+      throw err
+    }
+  }
+
+  resetSlots () {
+    this.slots.forEach(slot => {
+      slot.word = null
     })
-
-    console.log('\n' + GeneratorTemplate.matrixToTemplate(matrix))
-
-    return true
   }
 
   static isStart (matrix, x, y) {
@@ -167,7 +185,8 @@ class GeneratorTemplate {
   }
 
   static templateToMatrix (template) {
-    return template.split('\n').map(r => r.split(' '))
+    return template.split('\n')
+      .map(r => r.split(' '))
   }
 
   static matrixToTemplate (matrix) {
@@ -183,7 +202,7 @@ class GeneratorTemplate {
       })
 
     if (!filtered.length) {
-      console.error('No word matches', chars)
+      throw Error(`No word matches. Length: ${length}. Chars: ${chars.join(',')}`)
     }
 
     const rand = Math.floor(Math.random() * filtered.length)
@@ -202,11 +221,15 @@ class WordSlot {
 
   charsFromMatrix (matrix) {
     const [x, y] = this.start
-    return [...Array(this.length)]
+    const chars = [...Array(this.length)]
+      .map(() => null)
       .map((_, index) => {
-        const char = this.direction === ACROSS ? matrix[y][x + index] : matrix[y + index][x]
+        const { direction } = this
+        const char = direction === ACROSS ? matrix[y][x + index] : matrix[y + index][x]
         return char !== PLACEHOLDER ? char : null
-      }).filter(char => char)
+      })
+    console.log(chars)
+    return chars
   }
 
   updateMatrix (matrix) {
