@@ -19,53 +19,26 @@ class GeneratorTemplate {
   }
 
   create () {
-    const orientation = GeneratorTemplate.getOrientation()
     return GeneratorTemplate.getTemplate(this.size, this.orientation)
       .then(template => {
-        this.template = GeneratorTemplate.orientateTemplate(orientation, template)
-        this.matrix = GeneratorTemplate.templateToMatrix(this.template)
-        this.slots = GeneratorTemplate.getWordSlots(this.matrix)
-
-        try {
-          this.fill()
-        } catch (err) {
-          console.error(err)
-        }
+        const orientation = GeneratorTemplate.getOrientation()
+        const orientated = GeneratorTemplate.orientateTemplate(orientation, template)
+        const matrix = GeneratorTemplate.templateToMatrix(orientated)
+        const filled = this.fill(matrix)
+        console.log(filled)
       })
   }
 
-  fill () {
-    let attempts = 0
-    while (attempts <= MAX_ATTEMPTS) {
-      console.log(`Attempt: ${attempts}`)
-      attempts++
-      try {
-        this.fillAttempt()
-      } catch (err) {}
-    }
-  }
-
-  fillAttempt () {
-    // clone matrix to use
-    const matrix = JSON.parse(JSON.stringify(this.matrix))
+  fill (matrix) {
     const words = [...this.words]
-    const slots = this.slots.sort((a, b) => b.length - a.length)
-
-    try {
-      slots.forEach(slot => {
-        const chars = slot.charsFromMatrix(matrix)
-        const word = GeneratorTemplate.findWord(words, slot.length, chars)
-        delete words[words.indexOf(word)]
-        slot.word = word
-        slot.updateMatrix(matrix)
-        console.log('\n' + GeneratorTemplate.matrixToTemplate(matrix))
-      })
-    } catch (err) {
-      console.error(err.message)
-      console.log('\n' + GeneratorTemplate.matrixToTemplate(matrix))
-      this.resetSlots()
-      throw err
-    }
+    const slots = GeneratorTemplate.getWordSlots(matrix)
+    console.log(slots)
+    slots.forEach(slot => {
+      const word = GeneratorTemplate.findWord(words, slot.length)
+      slot.word = word
+      slot.updateMatrix(matrix)
+    })
+    return matrix
   }
 
   resetSlots () {
@@ -121,7 +94,8 @@ class GeneratorTemplate {
         }
       })
     })
-    return slots
+    return slots.sort((a, b) => b.length - a.length)
+      .filter(({ length }) => length > 0)
   }
 
   static findWordEnd (matrix, x, y, direction) {
